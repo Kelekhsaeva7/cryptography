@@ -5,332 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тайны Криптографии</title>
     <style>
-        <style>
-    <style>
-    /* ОСНОВНЫЕ СТИЛИ - КАК БЫЛО */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
-        background-color: #f8f9fa;
-        color: #333;
-        line-height: 1.6;
-        min-height: 100vh;
-        display: flex;
-    }
-    
-    /* БОКОВОЕ МЕНЮ - КРАСИВОЕ КАК БЫЛО */
-    .sidebar {
-        width: 280px;
-        background: linear-gradient(180deg, #2c3e50 0%, #1a252f 100%);
-        color: white;
-        padding: 30px 20px;
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 100%;
-        overflow-y: auto;
-        box-shadow: 3px 0 15px rgba(0,0,0,0.1);
-        z-index: 1000;
-        transition: transform 0.3s ease;
-    }
-    
-    .sidebar h2 {
-        font-size: 1.6rem;
-        margin-bottom: 30px;
-        text-align: center;
-        color: #ecf0f1;
-        padding-bottom: 15px;
-        border-bottom: 2px solid #3498db;
-    }
-    
-    .sidebar ul {
-        list-style: none;
-    }
-    
-    .sidebar ul li {
-        margin-bottom: 12px;
-    }
-    
-    .sidebar ul li a {
-        color: #bdc3c7;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        padding: 12px 18px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-    }
-    
-    .sidebar ul li a:hover,
-    .sidebar ul li a.active {
-        background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
-        color: white;
-        transform: translateX(5px);
-    }
-    
-    /* ИКОНКИ ДЛЯ ПУНКТОВ МЕНЮ */
-    .sidebar ul li a::before {
-        content: '→';
-        margin-right: 12px;
-        font-size: 14px;
-        opacity: 0.7;
-        transition: all 0.3s;
-    }
-    
-    .sidebar ul li a:hover::before {
-        content: '🔓';
-        opacity: 1;
-        transform: scale(1.2);
-    }
-    
-    /* ОСНОВНОЙ КОНТЕНТ - КАК БЫЛО */
-    .content {
-        margin-left: 300px;
-        padding: 40px;
-        flex: 1;
-        max-width: 1000px;
-        transition: margin-left 0.3s ease;
-    }
-    
-    h1 {
-        color: #2c3e50;
-        margin-bottom: 25px;
-        font-size: 2.2rem;
-        font-weight: 700;
-    }
-    
-    h2 {
-        color: #34495e;
-        margin-top: 40px;
-        margin-bottom: 20px;
-        padding-bottom: 12px;
-        border-bottom: 3px solid #3498db;
-        font-size: 1.6rem;
-    }
-    
-    h3 {
-        color: #2980b9;
-        margin-bottom: 15px;
-        font-size: 1.3rem;
-    }
-    
-    p {
-        margin-bottom: 20px;
-        font-size: 1.05rem;
-        line-height: 1.7;
-    }
-    
-    /* ЗАДАНИЯ - КАК БЫЛО */
-    .task {
-        background: white;
-        border-radius: 12px;
-        padding: 25px;
-        margin: 25px 0;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        border-left: 6px solid #3498db;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .task:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-    }
-    
-    button {
-        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-        color: white;
-        border: none;
-        padding: 14px 28px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1.05rem;
-        font-weight: 600;
-        margin-top: 15px;
-        transition: all 0.3s;
-        box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-    }
-    
-    button:hover {
-        background: linear-gradient(135deg, #2980b9 0%, #2573a7 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-    }
-    
-    input, textarea {
-        width: 100%;
-        padding: 15px;
-        margin: 15px 0;
-        border: 2px solid #e0e0e0;
-        border-radius: 8px;
-        font-size: 16px;
-        background-color: #f9f9f9;
-        transition: border 0.3s;
-    }
-    
-    input:focus, textarea:focus {
-        border-color: #3498db;
-        background-color: white;
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-    }
-    
-    .result {
-        margin-top: 20px;
-        padding: 15px;
-        border-radius: 8px;
-        display: none;
-        font-size: 1rem;
-        animation: fadeIn 0.5s;
-    }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* ФИНАЛЬНАЯ ИГРА */
-    .final-game {
-        background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
-        color: white;
-        padding: 35px;
-        border-radius: 15px;
-        text-align: center;
-        margin-top: 50px;
-        box-shadow: 0 8px 25px rgba(26, 188, 156, 0.3);
-        animation: pulse 3s infinite;
-    }
-    
-    @keyframes pulse {
-        0% { box-shadow: 0 8px 25px rgba(26, 188, 156, 0.3); }
-        50% { box-shadow: 0 8px 35px rgba(26, 188, 156, 0.5); }
-        100% { box-shadow: 0 8px 25px rgba(26, 188, 156, 0.3); }
-    }
-    
-    footer {
-        margin-top: 60px;
-        text-align: center;
-        color: #7f8c8d;
-        font-size: 0.9rem;
-        padding: 25px;
-        border-top: 1px solid #eaeaea;
-        background: #fdfdfd;
-        border-radius: 10px;
-    }
-    
-    /* ========== АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНА ========== */
-    @media (max-width: 1024px) {
-        .sidebar {
-            width: 260px;
+       /* ОСНОВНЫЕ СТИЛИ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .content {
-            margin-left: 280px;
-            padding: 30px;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        /* НА ТЕЛЕФОНЕ: ВЫДВИЖНОЕ МЕНЮ */
         body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
             display: block;
-        }
-        
-        .sidebar {
-            width: 280px;
-            transform: translateX(-100%);
-            box-shadow: 5px 0 25px rgba(0,0,0,0.2);
-        }
-        
-        .sidebar.active {
-            transform: translateX(0);
-        }
-        
-        /* КНОПКА МЕНЮ ДЛЯ ТЕЛЕФОНА */
-        .menu-toggle {
-            display: block;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            z-index: 1001;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-        }
-        
-        /* ОСНОВНОЙ КОНТЕНТ НА ВСЮ ШИРИНУ */
-        .content {
-            margin-left: 0;
-            padding: 80px 20px 30px;
-            width: 100%;
-        }
-        
-        h1 {
-            font-size: 1.8rem;
-            text-align: center;
-            margin-top: 10px;
-        }
-        
-        h2 {
-            font-size: 1.4rem;
-        }
-        
-        .task {
             padding: 20px;
         }
         
-        button {
-            width: 100%;
-            padding: 16px;
-            font-size: 1.1rem;
-        }
-        
-        /* ЗАТЕМНЕНИЕ ФОНА ПРИ ОТКРЫТОМ МЕНЮ */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
-        
-        .overlay.active {
-            display: block;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .content {
-            padding: 70px 15px 25px;
-        }
-        
         h1 {
-            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2rem;
         }
         
         h2 {
-            font-size: 1.3rem;
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
         }
         
-        .task {
-            padding: 18px;
+        /* БОКОВОЕ МЕНЮ - УПРОЩЕННОЕ */
+        .sidebar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
         }
-    }
-</style>
-</style>
+        
+        .sidebar ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .sidebar ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: #34495e;
+            display: inline-block;
+        }
+        
+        .sidebar ul li a:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        /* ЗАДАНИЯ */
+        .task {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 5px solid #3498db;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f6f3;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        /* ФИНАЛЬНАЯ ИГРА */
+        .final-game {
+            background: #1abc9c;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
