@@ -4,51 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тайны Криптографии</title>
-    <style>
-        /* Полный CSS из предыдущего примера, но вынесенный в отдельный файл */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+       <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-body {
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.6;
-    display: flex;
-    min-height: 100vh;
-}
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
 
-/* ... и так далее весь CSS код ... */
+        /* Боковое меню */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
 
-.github-link {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #34495e;
-}
+        .sidebar h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ecf0f1;
+        }
 
-.github-link a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #ecf0f1;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
+        .sidebar ul {
+            list-style: none;
+        }
 
-.github-link a:hover {
-    background-color: #34495e;
-}
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
 
-.github-link img {
-    width: 20px;
-    height: 20px;
-    filter: invert(1);
-}
+        .sidebar ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background-color: #34495e;
+            color: white;
+        }
+
+        /* Основной контент */
+        .content {
+            margin-left: 270px;
+            padding: 30px;
+            flex: 1;
+            max-width: 900px;
+        }
+
+        .content h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .content h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .content ul, .content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+
+        /* Карточки с заданиями */
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 5px solid #3498db;
+        }
+
+        .card h3 {
+            color: #2980b9;
+            margin-bottom: 15px;
+        }
+
+        .task {
+            background-color: #f1f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f6f3;
+            border-radius: 5px;
+            display: none;
+        }
+
+        /* Итоговая игра */
+        .final-game {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .final-game h2 {
+            color: white;
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .content {
+                margin-left: 0;
+            }
+        }
     </style>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
