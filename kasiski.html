@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Метод Казиски - Криптография для школьников</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Криптография</h2>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="caesar.html">Шифр Цезаря</a></li>
+            <li><a href="atbash.html">Шифр Атабаш</a></li>
+            <li><a href="vigenere.html">Шифр Виженера</a></li>
+            <li><a href="kasiski.html" class="active">Метод Казиски</a></li>
+            <li><a href="enigma.html">Энигма и XOR</a></li>
+            <li><a href="final.html">Финальный квест</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Метод Казиски</h1>
+            <p class="subtitle">Как взломать полиалфавитные шифры с помощью анализа повторений</p>
+        </header>
+
+        <section id="theory">
+            <h2>Как работает метод Казиски?</h2>
+            <div class="card">
+                <p>Метод позволяет определить длину ключа шифра Виженера, находя повторяющиеся фрагменты в зашифрованном тексте.</p>
+                
+                <div class="example">
+                    <h3>Шаги метода:</h3>
+                    <ol>
+                        <li>Ищем повторяющиеся сочетания букв (например, "ХЩЧ")</li>
+                        <li>Измеряем расстояния между повторами</li>
+                        <li>Находим общие делители расстояний → возможная длина ключа</li>
+                        <li>Разбиваем текст на группы и применяем частотный анализ</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice">
+            <h2>Практическое задание</h2>
+            
+            <div class="card">
+                <h3>🎮 Мини-игра: Криптоаналитик</h3>
+                
+                <div class="task">
+                    <p><strong>Задание 1:</strong> Найдите повторения в тексте "АБВГДАБВЕЁЖ"</p>
+                    <div class="game-input">
+                        <input type="text" id="task1" placeholder="Введите повторяющееся сочетание">
+                        <button onclick="checkTask1()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result1"></div>
+                </div>
+
+                <div class="task">
+                    <p><strong>Задание 2:</strong> В тексте "ХЩЧЗТХЩЧ" расстояние между "ХЩЧ" равно 6. Какая возможная длина ключа?</p>
+                    <div class="game-input">
+                        <input type="text" id="task2" placeholder="Например: 2,3 или 2 и 3">
+                        <button onclick="checkTask2()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result2"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="game">
+            <h2>Игра "Криптоаналитики"</h2>
+            <div class="card game-card">
+                <h3>Тайна шифра Виженера</h3>
+                <p><strong>Зашифрованное сообщение:</strong> "ЪЯММУЦ ЧЧФ"</p>
+                <p><strong>Известно:</strong></p>
+                <ul>
+                    <li>Использовался шифр Виженера</li>
+                    <li>Длина ключа: 3 буквы</li>
+                    <li>Первая буква ключа: "К"</li>
+                    <li>Пробел не шифровался</li>
+                </ul>
+                
+                <div class="game-task">
+                    <p><strong>Этап 1:</strong> Найдите повторения в тексте</p>
+                    <div class="game-input">
+                        <input type="text" id="gameTask1">
+                        <button onclick="checkGameTask1()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="gameResult1"></div>
+                </div>
+                
+                <div class="game-task">
+                    <p><strong>Этап 2:</strong> Предположите ключ (формат: К??)</p>
+                    <div class="game-input">
+                        <input type="text" id="gameTask2">
+                        <button onclick="checkGameTask2()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="gameResult2"></div>
+                </div>
+                
+                <div class="game-task">
+                    <p><strong>Этап 3:</strong> Расшифруйте сообщение</p>
+                    <div class="game-input">
+                        <input type="text" id="gameTask3" placeholder="Сначала найдите ключ во 2 этапе" disabled>
+                        <button onclick="checkGameTask3()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="gameResult3"></div>
+                </div>
+                
+                <button onclick="showSolution()" class="solution-button">Показать решение</button>
+                <div class="game-result" id="finalSolution" style="display:none;">
+                    <h4>✅ Решение:</h4>
+                    <p>Ключ: "КОД"</p>
+                    <p>Расшифрованное сообщение: "ПРИВЕТ МИР"</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="navigation-buttons">
+            <div class="nav-buttons">
+                <a href="vigenere.html" class="nav-button">← Шифр Виженера</a>
+                <a href="index.html" class="nav-button">На главную</a>
+                <a href="enigma.html" class="nav-button">Следующий: Энигма и XOR →</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Метод Казиски - Урок криптографии</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Функции для страницы Казиски
+        function checkTask1() {
+            const answer = document.getElementById('task1').value.toUpperCase();
+            
+            if (answer === "АБВ" || answer.includes("АБВ")) {
+                document.getElementById('result1').innerHTML = '✅ Верно! "АБВ" повторяется дважды';
+                document.getElementById('result1').className = 'game-result success';
+            } else {
+                document.getElementById('result1').innerHTML = '❌ Ищите сочетание из 3 букв';
+                document.getElementById('result1').className = 'game-result error';
+            }
+        }
+        
+        function checkTask2() {
+            const answer = document.getElementById('task2').value;
+            
+            if (answer === "2,3" || answer === "2 и 3" || answer === "2 или 3") {
+                document.getElementById('result2').innerHTML = '✅ Правильно! 6 делится на 2 и 3';
+                document.getElementById('result2').className = 'game-result success';
+            } else {
+                document.getElementById('result2').innerHTML = '❌ На какие числа делится 6?';
+                document.getElementById('result2').className = 'game-result error';
+            }
+        }
+        
+        function analyzeText() {
+            const text = document.getElementById('textInput').value.toUpperCase().replace(/\s/g, '');
+            let result = "Анализ текста:\n\n";
+            
+            // Ищем повторения
+            const repetitions = {};
+            
+            for (let length = 3; length <= 5; length++) {
+                for (let i = 0; i <= text.length - length; i++) {
+                    const substring = text.substr(i, length);
+                    
+                    for (let j = i + 1; j <= text.length - length; j++) {
+                        if (text.substr(j, length) === substring) {
+                            if (!repetitions[substring]) {
+                                repetitions[substring] = [];
+                            }
+                            repetitions[substring].push({start: i, end: j});
+                        }
+                    }
+                }
+            }
+            
+            if (Object.keys(repetitions).length === 0) {
+                result += "Повторяющихся сочетаний не найдено.";
+            } else {
+                result += "Найдены повторения:\n";
+                for (const [seq, positions] of Object.entries(repetitions)) {
+                    const distance = positions[0].end - positions[0].start;
+                    result += `"${seq}" - расстояние: ${distance} символов\n`;
+                    result += `Возможная длина ключа: делители ${distance}\n\n`;
+                }
+            }
+            
+            document.getElementById('analysisResult').innerHTML = result.replace(/\n/g, '<br>');
+        }
+        
+        function checkGameTask1() {
+            const answer = document.getElementById('gameTask1').value.toUpperCase();
+            
+            if (answer.includes("ММ") & answer.includes("ЧЧ")) {
+                document.getElementById('gameResult1').innerHTML = '✅ Верно! Найдены повторения "ММ" и "ЧЧ"';
+                document.getElementById('gameResult1').className = 'game-result success';
+            } else {
+                document.getElementById('gameResult1').innerHTML = '❌ Ищите одинаковые буквы рядом';
+                document.getElementById('gameResult1').className = 'game-result error';
+            }
+        }
+        
+        function checkGameTask2() {
+            const answer = document.getElementById('gameTask2').value.toUpperCase();
+            
+            if (answer === "КОД") {
+                document.getElementById('gameResult2').innerHTML = '✅ Браво! Вы нашли ключ! Теперь попробуйте расшифровать сообщение.';
+                document.getElementById('gameResult2').className = 'game-result success';
+                // Разблокируем поле для третьего этапа
+                document.getElementById('gameTask3').disabled = false;
+                document.getElementById('gameTask3').placeholder = "Введите расшифрованное сообщение";
+            } else if (answer === "КЛЮЧ" || answer === "КОТ") {
+                document.getElementById('gameResult2').innerHTML = '❌ Попробуйте другой вариант';
+                document.getElementById('gameResult2').className = 'game-result error';
+            } else {
+                document.getElementById('gameResult2').innerHTML = '❌ Ключ состоит из 3 букв, начинается с К';
+                document.getElementById('gameResult2').className = 'game-result error';
+            }
+        }
+        
+        function checkGameTask3() {
+            const answer = document.getElementById('gameTask3').value.toUpperCase();
+            const normalizedAnswer = answer.trim().replace(/[,\-!\.]/g, ' ').replace(/\s+/g, ' ');
+            
+            // Принимаем разные варианты написания
+            if (normalizedAnswer === "ПРИВЕТ МИР" || 
+                answer === "ПРИВЕТМИР" || 
+                answer.includes("ПРИВЕТ МИР") ||
+                answer === "ПРИВЕТ,МИР" ||
+                answer === "ПРИВЕТ МИР!") {
+                
+                document.getElementById('gameResult3').innerHTML = '✅ Отлично! Вы успешно расшифровали сообщение!';
+                document.getElementById('gameResult3').className = 'game-result success';
+                
+                // Поздравляем игрока
+                setTimeout(() => {
+                    alert('🎉 Поздравляем! Вы успешно прошли все этапы игры и взломали шифр Виженера! 🎉');
+                }, 500);
+                
+            } else if (answer === "" || answer.length < 5) {
+                document.getElementById('gameResult3').innerHTML = '❌ Введите расшифрованное сообщение';
+                document.getElementById('gameResult3').className = 'game-result error';
+            } else if (answer.includes("HELLO") || answer.includes("WORLD")) {
+                document.getElementById('gameResult3').innerHTML = '❌ Используйте русский алфавит';
+                document.getElementById('gameResult3').className = 'game-result error';
+            } else {
+                document.getElementById('gameResult3').innerHTML = '❌ Не совсем верно. Попробуйте снова! Подсказка: сообщение состоит из двух слов';
+                document.getElementById('gameResult3').className = 'game-result error';
+            }
+        }
+        
+        function showSolution() {
+            document.getElementById('finalSolution').style.display = 'block';
+            document.getElementById('gameResult3').innerHTML = '✅ Решение показано ниже';
+            document.getElementById('gameResult3').className = 'game-result success';
+            // Разблокируем поле для третьего этапа при показе решения
+            document.getElementById('gameTask3').disabled = false;
+            document.getElementById('gameTask3').placeholder = "Введите расшифрованное сообщение";
+        }
+    </script>
+</body>
+</html>

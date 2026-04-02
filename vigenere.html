@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шифр Виженера - Криптография для школьников</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Криптография</h2>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="caesar.html">Шифр Цезаря</a></li>
+            <li><a href="atbash.html">Шифр Атабаш</a></li>
+            <li><a href="vigenere.html" class="active">Шифр Виженера</a></li>
+            <li><a href="kasiski.html">Метод Казиски</a></li>
+            <li><a href="enigma.html">Энигма и XOR</a></li>
+            <li><a href="final.html">Финальный квест</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Шифр Виженера</h1>
+            <p class="subtitle">Полиалфавитный шифр XVI века, долгое время считавшийся невзламываемым</p>
+        </header>
+
+        <section id="theory">
+            <h2>Как работает шифр Виженера?</h2>
+            <div class="card">
+                <p>Использует ключевое слово для определения величины сдвига каждой буквы. Каждая буква ключа указывает, на сколько сдвигать соответствующую букву текста.</p>
+                
+                <div class="example">
+                    <h3>Пример:</h3>
+                    <p><strong>Текст:</strong> МАТЕМАТИКА</p>
+                    <p><strong>Ключ:</strong> ЗАДАЧА (повторяем: ЗАДАЧАЗАД)</p>
+                    <p><strong>Шифрование:</strong> М+З=Й, А+А=А, Т+Д=Х, Е+А=Е и т.д.</p>
+                    <p><strong>Результат:</strong> ЙАХЕЪЧДЙА</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice">
+            <h2>Практическое задание</h2>
+            
+            <div class="card">
+                <h3>🎮 Мини-игра: Шифр Виженера</h3>
+                
+                <div class="task">
+                    <p><strong>Задание 1:</strong> Зашифруйте слово "ЗАДАЧА" с ключом "РУЧКА"</p>
+                    <p class="hint">💡 Подсказка: А=0, Б=1, В=2, ... Я=32</p>
+                    <div class="game-input">
+                        <input type="text" id="task1" placeholder="Введите зашифрованное слово">
+                        <button onclick="checkTask1()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result1"></div>
+                </div>
+
+                <div class="task">
+                    <p><strong>Задание 2:</strong> Расшифруйте слово "ЙАХЕЪЧДЙА" с ключом "ЗАДАЧА"</p>
+                    <div class="game-input">
+                        <input type="text" id="task2" placeholder="Введите расшифрованное слово">
+                        <button onclick="checkTask2()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result2"></div>
+                </div>
+            </div>
+
+
+        <section id="table">
+            <h2>Таблица Виженера</h2>
+            <div class="card">
+                <img src="media/vigenere-table.png" alt="Таблица Виженера" style="max-width: 600px;">
+                <p class="note">💡 Таблица показывает, как шифровать буквы: находите букву текста в строке, букву ключа в столбце, их пересечение даёт зашифрованную букву.</p>
+            </div>
+        </section>
+
+        <section id="navigation-buttons">
+            <div class="nav-buttons">
+                <a href="atbash.html" class="nav-button">← Шифр Атабаш</a>
+                <a href="index.html" class="nav-button">На главную</a>
+                <a href="kasiski.html" class="nav-button">Следующий: Метод Казиски →</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Шифр Виженера - Урок криптографии</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Функции для страницы Виженера
+        function letterToNumber(letter) {
+            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+            return alphabet.indexOf(letter);
+        }
+        
+        function numberToLetter(number) {
+            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+            return alphabet[number % 33];
+        }
+        
+        function checkTask1() {
+            const answer = document.getElementById('task1').value.toUpperCase();
+            const correct = "ЮДДЫР";
+            
+            if (answer === correct) {
+                document.getElementById('result1').innerHTML = '✅ Верно! "ЗАДАЧА" с ключом "РУЧКА" → "ЮДДЫР"';
+                document.getElementById('result1').className = 'game-result success';
+            } else {
+                document.getElementById('result1').innerHTML = '❌ Попробуйте еще раз. З(8)+Р(17)=Ю(31)';
+                document.getElementById('result1').className = 'game-result error';
+            }
+        }
+        
+        function checkTask2() {
+            const answer = document.getElementById('task2').value.toUpperCase();
+            const correct = "МАТЕМАТИКА";
+            
+            if (answer === correct) {
+                document.getElementById('result2').innerHTML = '✅ Отлично! Вы расшифровали сообщение';
+                document.getElementById('result2').className = 'game-result success';
+            } else {
+                document.getElementById('result2').innerHTML = '❌ Неправильно. Й(10)-З(8)=М(13)';
+                document.getElementById('result2').className = 'game-result error';
+            }
+        }
+        
+        function encryptVigenere() {
+            const text = document.getElementById('textInput').value.toUpperCase();
+            const key = document.getElementById('keyInput').value.toUpperCase();
+            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const textChar = text[i];
+                const keyChar = key[i % key.length];
+                const textIndex = alphabet.indexOf(textChar);
+                const keyIndex = alphabet.indexOf(keyChar);
+                
+                if (textIndex !== -1 && keyIndex !== -1) {
+                    const newIndex = (textIndex + keyIndex) % alphabet.length;
+                    result += alphabet[newIndex];
+                } else {
+                    result += textChar;
+                }
+            }
+            
+            document.getElementById('textResult').innerHTML = result;
+        }
+        
+        function decryptVigenere() {
+            const text = document.getElementById('textInput').value.toUpperCase();
+            const key = document.getElementById('keyInput').value.toUpperCase();
+            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const textChar = text[i];
+                const keyChar = key[i % key.length];
+                const textIndex = alphabet.indexOf(textChar);
+                const keyIndex = alphabet.indexOf(keyChar);
+                
+                if (textIndex !== -1 && keyIndex !== -1) {
+                    const newIndex = (textIndex - keyIndex + alphabet.length) % alphabet.length;
+                    result += alphabet[newIndex];
+                } else {
+                    result += textChar;
+                }
+            }
+            
+            document.getElementById('textResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шифр Цезаря - Криптография для школьников</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Криптография</h2>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="caesar.html" class="active">Шифр Цезаря</a></li>
+            <li><a href="atbash.html">Шифр Атабаш</a></li>
+            <li><a href="vigenere.html">Шифр Виженера</a></li>
+            <li><a href="kasiski.html">Метод Казиски</a></li>
+            <li><a href="enigma.html">Энигма и XOR</a></li>
+            <li><a href="final.html">Финальный квест</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Шифр Цезаря</h1>
+            <p class="subtitle">Простейший шифр подстановки, названный в честь римского императора Юлия Цезаря</p>
+        </header>
+
+        <section id="theory">
+            <h2>Как работает шифр Цезаря?</h2>
+            <div class="card">
+                <p>Каждая буква в слове сдвигается на определённое количество позиций в алфавите. Например, при сдвиге на 3:</p>
+                <div class="example">
+                    <p><strong>А → Г, Б → Д, В → Е, ... Я → В</strong></p>
+                    <p>Слово "ПРИВЕТ" становится "ТУЛЗИХ"</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice">
+            <h2>Практическое задание</h2>
+            
+            <div class="card">
+                <h3>Мини-игра: Шифруем сообщения</h3>
+                
+                <div class="task">
+                    <p><strong>Задание 1:</strong> Зашифруйте слово "МАТЕМАТИКА" со сдвигом 5</p>
+                    <div class="game-input">
+                        <input type="text" id="task1" placeholder="Введите зашифрованное слово">
+                        <button onclick="checkTask1()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result1"></div>
+                </div>
+
+                <div class="task">
+                    <p><strong>Задание 2:</strong> Расшифруйте слово "ЙЕЗКШЭ" (сдвиг 8)</p>
+                    <div class="game-input">
+                        <input type="text" id="task2" placeholder="Введите расшифрованное слово">
+                        <button onclick="checkTask2()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result2"></div>
+                </div>
+            </div>
+
+
+        <section id="vulnerability">
+            <h2>Уязвимости шифра Цезаря</h2>
+            <div class="card">
+                <h3>Частотный анализ</h3>
+                <p>Шифр Цезаря легко взломать с помощью частотного анализа. В русском языке:</p>
+                <ul>
+                    <li>Чаще всего встречаются: О, Е, А, И, Н</li>
+                    <li>Реже всего: Ф, Ъ, Ё</li>
+                </ul>
+                <p>Если в зашифрованном тексте чаще всего буква "Г" → возможно, это зашифрованная "О"</p>
+            </div>
+        </section>
+
+        <section id="navigation-buttons">
+            <div class="nav-buttons">
+                <a href="index.html" class="nav-button">← На главную</a>
+                <a href="atbash.html" class="nav-button">Следующий: Шифр Атабаш →</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Шифр Цезаря - Урок криптографии</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Функции для страницы Цезаря
+        function checkTask1() {
+            const answer = document.getElementById('task1').value.toUpperCase();
+            const correct = "РЁИРЁФНПФ";
+            
+            if (answer === correct) {
+                document.getElementById('result1').innerHTML = '✅ Верно! "МАТЕМАТИКА" → "РЁИРЁФНПФ"';
+                document.getElementById('result1').className = 'game-result success';
+            } else {
+                document.getElementById('result1').innerHTML = '❌ Попробуйте еще раз';
+                document.getElementById('result1').className = 'game-result error';
+            }
+        }
+        
+        function checkTask2() {
+            const answer = document.getElementById('task2').value.toUpperCase();
+            const correct = "ШИФРОВКА";
+            
+            if (answer === correct) {
+                document.getElementById('result2').innerHTML = '✅ Отлично! "ЙЕЗКШЭ" → "ШИФРОВКА"';
+                document.getElementById('result2').className = 'game-result success';
+            } else {
+                document.getElementById('result2').innerHTML = '❌ Неправильно. Подсказка: Й→Ш';
+                document.getElementById('result2').className = 'game-result error';
+            }
+        }
+        
+        function encryptText() {
+            const text = document.getElementById('textInput').value.toUpperCase();
+            const shift = parseInt(document.getElementById('shiftInput').value);
+            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const index = alphabet.indexOf(char);
+                
+                if (index !== -1) {
+                    const newIndex = (index + shift) % alphabet.length;
+                    result += alphabet[newIndex];
+                } else {
+                    result += char;
+                }
+            }
+            
+            document.getElementById('textResult').innerHTML = result;
+        }
+        
+        function decryptText() {
+            const text = document.getElementById('textInput').value.toUpperCase();
+            const shift = parseInt(document.getElementById('shiftInput').value);
+            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const index = alphabet.indexOf(char);
+                
+                if (index !== -1) {
+                    const newIndex = (index - shift + alphabet.length) % alphabet.length;
+                    result += alphabet[newIndex];
+                } else {
+                    result += char;
+                }
+            }
+            
+            document.getElementById('textResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>
