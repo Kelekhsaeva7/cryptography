@@ -8,8 +8,9 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+    <!-- Боковое меню (скопировано из index.html для единообразия) -->
     <div class="sidebar">
-        <h2>Криптография</h2>
+        <h2>Шифры и задания</h2>
         <ul>
             <li><a href="index.html">Главная</a></li>
             <li><a href="caesar.html">Шифр Цезаря</a></li>
@@ -19,6 +20,12 @@
             <li><a href="enigma.html">Энигма и XOR</a></li>
             <li><a href="final.html" class="active">Финальный квест</a></li>
         </ul>
+        <div class="github-link">
+            <a href="https://github.com/Kelekhsaeva7/cryptography" target="_blank">
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+                Исходный код
+            </a>
+        </div>
     </div>
 
     <div class="content">
@@ -29,7 +36,7 @@
 
         <section id="instructions">
             <div class="card quest-intro">
-                <h2>🎯 Инструкция</h2>
+                <h2>Инструкция</h2>
                 <p>Вы - команда криптоаналитиков. Перед вами 5 зашифрованных сообщений. Используйте все изученные методы, чтобы расшифровать их и найти финальный код.</p>
                 <p><strong>Время на выполнение:</strong> 30 минут</p>
                 <p><strong>Количество заданий:</strong> 5</p>
@@ -106,7 +113,7 @@
 
         <section id="final-code">
             <div class="card final-code-card">
-                <h2>🎖️ Финальный код</h2>
+                <h2>Финальный код</h2>
                 <p>Соберите первые буквы всех расшифрованных сообщений из заданий 1-4:</p>
                 
                 <div class="code-input">
@@ -134,117 +141,135 @@
 
         <footer>
             <p>© 2026 Финальный квест - Завершение курса криптографии</p>
+            <p>Разработано для учащихся 5–7 классов | <a href="https://github.com/Kelekhsaeva7/cryptography" target="_blank">Сообщить об ошибке</a></p>
         </footer>
     </div>
 
-    <script src="script.js"></script>
-    <script>
+        <script>
         // Функции для финального квеста
+        
         function checkQuest1() {
-            const answer = document.getElementById('quest1').value.toUpperCase();
+            const answer = document.getElementById('quest1').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('questResult1');
             
-            if (answer.includes("ВИЖЕНЕР") || answer === "ШИФР ВИЖЕНЕРА") {
-                document.getElementById('questResult1').innerHTML = '✅ Верно! Это шифр Виженера';
-                document.getElementById('questResult1').className = 'game-result success';
+            if (answer === "ВИЖЕНЕР" || answer === "ШИФР ВИЖЕНЕРА" || answer === "ВИЖИНЕРА") {
+                resultDiv.innerHTML = '✅ Верно! Это шифр Виженера';
+                resultDiv.className = 'game-result success';
             } else {
-                document.getElementById('questResult1').innerHTML = '❌ Вспомните, какой шифр использует ключевое слово';
-                document.getElementById('questResult1').className = 'game-result error';
+                resultDiv.innerHTML = '❌ Вспомните, какой шифр использует ключевое слово. Подсказка: он полиалфавитный.';
+                resultDiv.className = 'game-result error';
             }
         }
         
         function checkQuest2() {
-            const answer = document.getElementById('quest2').value.toUpperCase();
+            const answer = document.getElementById('quest2').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('questResult2');
             
             if (answer === "ДОБРЫЙ ДЕНЬ" || answer === "ДОБРЫЙДЕНЬ") {
-                document.getElementById('questResult2').innerHTML = '✅ Отлично! "ГЖЕФКУ ЗПМХФЕВТ" → "ДОБРЫЙ ДЕНЬ" (сдвиг 3)';
-                document.getElementById('questResult2').className = 'game-result success';
+                resultDiv.innerHTML = '✅ Отлично! "ГЖЕФКУ ЗПМХФЕВТ" → "ДОБРЫЙ ДЕНЬ" (сдвиг +3)';
+                resultDiv.className = 'game-result success';
             } else {
-                document.getElementById('questResult2').innerHTML = '❌ Используйте частотный анализ';
-                document.getElementById('questResult2').className = 'game-result error';
+                resultDiv.innerHTML = '❌ Попробуйте сдвиг на 3 позиции (шифр Цезаря)';
+                resultDiv.className = 'game-result error';
             }
         }
         
         function checkQuest3() {
-            const answer = document.getElementById('quest3').value.toUpperCase();
+            const answer = document.getElementById('quest3').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('questResult3');
             
-            if (answer === "МИ КРИПТОГРАФ") {
-                document.getElementById('questResult3').innerHTML = '✅ Правильно! "РП ОЖХГМХГЗГВ" → "МИ КРИПТОГРАФ"';
-                document.getElementById('questResult3').className = 'game-result success';
+            if (answer === "МИ КРИПТОГРАФ" || answer === "МИКРИПТОГРАФ") {
+                resultDiv.innerHTML = '✅ Правильно! "РП ОЖХГМХГЗГВ" → "МИ КРИПТОГРАФ" (А↔Я, Б↔Ю, ...)';
+                resultDiv.className = 'game-result success';
             } else {
-                document.getElementById('questResult3').innerHTML = '❌ Примените шифр Атабаш';
-                document.getElementById('questResult3').className = 'game-result error';
+                resultDiv.innerHTML = '❌ Примените шифр Атабаш: замените каждую букву на симметричную от конца алфавита';
+                resultDiv.className = 'game-result error';
             }
         }
         
         function checkQuest4() {
-            const answer = document.getElementById('quest4').value.toUpperCase();
+            const answer = document.getElementById('quest4').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('questResult4');
             
             if (answer === "ЦИФРА") {
-                document.getElementById('questResult4').innerHTML = '✅ Отлично! "ЪФТСВЁ" с ключом "МАТЕМАТИКА" → "ЦИФРА"';
-                document.getElementById('questResult4').className = 'game-result success';
+                resultDiv.innerHTML = '✅ Отлично! "ЪФТСВЁ" с ключом "МАТЕМАТИКА" → "ЦИФРА"';
+                resultDiv.className = 'game-result success';
             } else {
-                document.getElementById('questResult4').innerHTML = '❌ Вычтите ключ из шифра';
-                document.getElementById('questResult4').className = 'game-result error';
+                resultDiv.innerHTML = '❌ Вычтите ключ из шифра (используйте таблицу Виженера или формулу)';
+                resultDiv.className = 'game-result error';
             }
         }
         
         function submitQuest5() {
             const answer = document.getElementById('quest5').value.trim();
+            const resultDiv = document.getElementById('questResult5');
             
-            if (answer.length > 10) {
-                document.getElementById('questResult5').innerHTML = '✅ Спасибо за ваш шифр! Теперь попробуйте его на друзьях.';
-                document.getElementById('questResult5').className = 'game-result success';
+            if (answer.length >= 20) {
+                resultDiv.innerHTML = '✅ Спасибо за ваш шифр! Отличное криптографическое творчество! Теперь попробуйте зашифровать им сообщение для друга.';
+                resultDiv.className = 'game-result success';
+            } else if (answer.length > 0 && answer.length < 20) {
+                resultDiv.innerHTML = '✅ Интересная идея! Попробуйте описать её немного подробнее (минимум 20 символов).';
+                resultDiv.className = 'game-result success';
             } else {
-                document.getElementById('questResult5').innerHTML = '❌ Опишите шифр подробнее';
-                document.getElementById('questResult5').className = 'game-result error';
+                resultDiv.innerHTML = '❌ Пожалуйста, опишите свой шифр подробнее, укажите правило шифрования.';
+                resultDiv.className = 'game-result error';
             }
         }
         
         function checkFinalCode() {
-            const answer = document.getElementById('finalCode').value.toUpperCase();
+            const answer = document.getElementById('finalCode').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('finalResult');
             
-            if (answer === "КРИП") {
-                document.getElementById('finalResult').innerHTML = '✅ БРАВО! Вы нашли финальный код!';
-                document.getElementById('finalResult').className = 'game-result success';
+            if (answer === "КРИП" || answer === "ВДМЦ") {
+                resultDiv.innerHTML = '✅ БРАВО! Вы нашли финальный код!';
+                resultDiv.className = 'game-result success';
                 
                 document.getElementById('certificate').style.display = 'block';
                 document.getElementById('codeDisplay').textContent = answer;
             } else {
-                document.getElementById('finalResult').innerHTML = '❌ Неправильно. Соберите первые буквы: К(риптография), Р(азгадка), И(скусство), П(обеда)';
-                document.getElementById('finalResult').className = 'game-result error';
+                resultDiv.innerHTML = '❌ Неправильно. Соберите первые буквы расшифрованных фраз из заданий 1-4. Подсказка: 1) ВиЖенер → В, 2) ДОбрый день → Д, 3) МИ криптограф → М, 4) Цифра → Ц. Получится ВДМЦ. Или если считать по-другому: КРИПТОГРАФИЯ → К, РАЗГАДКА → Р, ИСКУССТВО → И, ПОБЕДА → П → КРИП.';
+                resultDiv.className = 'game-result error';
             }
         }
         
         function printCertificate() {
+            const codeValue = document.getElementById('codeDisplay').innerText;
             const printContent = `
                 <html>
                 <head>
                     <title>Сертификат</title>
                     <style>
-                        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-                        .certificate { border: 10px double #3498db; padding: 40px; max-width: 800px; margin: 0 auto; }
-                        h1 { color: #2c3e50; }
-                        .name { font-size: 24px; color: #e74c3c; margin: 20px 0; }
-                        .course { font-size: 18px; color: #7f8c8d; }
-                        .date { margin-top: 30px; }
+                        body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background: #f0f8ff; }
+                        .certificate { border: 10px double #3498db; background: white; padding: 40px; max-width: 800px; margin: 0 auto; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+                        h1 { color: #2c3e50; font-size: 42px; margin-bottom: 10px; }
+                        .gold { color: #f39c12; }
+                        .course { font-size: 20px; color: #7f8c8d; margin: 10px 0; }
+                        .name { font-size: 28px; color: #e74c3c; margin: 20px 0; font-weight: bold; border-bottom: 2px solid #3498db; display: inline-block; padding: 0 20px; }
+                        .list { text-align: left; display: inline-block; margin: 20px auto; font-size: 16px; }
+                        .list li { margin: 8px 0; }
+                        .date { margin-top: 30px; color: #555; }
+                        .code { font-size: 24px; font-weight: bold; color: #27ae60; margin: 20px 0; }
+                        footer { margin-top: 30px; font-size: 12px; color: #999; }
                     </style>
                 </head>
                 <body>
                     <div class="certificate">
                         <h1>СЕРТИФИКАТ</h1>
                         <p class="course">о прохождении курса</p>
-                        <h2>"Тайны Криптографии"</h2>
+                        <h2 class="gold">"Тайны Криптографии"</h2>
                         <p>Настоящим удостоверяется, что</p>
                         <div class="name">УЧЕНИК 5-7 КЛАССА</div>
                         <p>успешно освоил основы криптографии, изучив:</p>
-                        <ul style="text-align: left; display: inline-block;">
-                            <li>Шифр Цезаря и Атабаш</li>
-                            <li>Шифр Виженера и метод Казиски</li>
-                            <li>Энигму и XOR-шифрование</li>
-                            <li>Основы криптоанализа</li>
+                        <ul class="list">
+                            <li>✓ Шифр Цезаря и Атабаш</li>
+                            <li>✓ Шифр Виженера и метод Казиски</li>
+                            <li>✓ Энигму и XOR-шифрование</li>
+                            <li>✓ Основы криптоанализа</li>
                         </ul>
+                        <div class="code">Финальный код: <strong>${codeValue}</strong></div>
                         <p class="date">Дата: ${new Date().toLocaleDateString('ru-RU')}</p>
-                        <p>Финальный код: <strong>КРИП</strong></p>
+                        <p>Руководитель: Келехсаева Н.С.</p>
+                        <footer>© 2026 Криптография для школьников</footer>
                     </div>
                 </body>
                 </html>
@@ -254,6 +279,26 @@
             printWindow.document.write(printContent);
             printWindow.document.close();
             printWindow.print();
+        }
+        
+        // Дополнительная функция для автопроверки при нажатии Enter
+        document.querySelectorAll('.quest-input input').forEach((input, index) => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const buttons = document.querySelectorAll('.quest-input button');
+                    if (buttons[index]) buttons[index].click();
+                }
+            });
+        });
+        
+        // Для финального поля
+        const finalInput = document.getElementById('finalCode');
+        if (finalInput) {
+            finalInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.querySelector('#final-code .code-input button').click();
+                }
+            });
         }
     </script>
 </body>
