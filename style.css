@@ -244,12 +244,12 @@ button:hover {
     padding: 25px;
     margin: 25px 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border-left: 5px solid #e67e22;
+    border-left: 5px solid #063a5c;
 }
 
 .quest-number {
     display: inline-block;
-    background-color: #e67e22;
+    background-color: #063a5c;
     color: white;
     padding: 5px 15px;
     border-radius: 20px;

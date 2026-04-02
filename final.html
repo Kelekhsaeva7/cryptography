@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-    <!-- Боковое меню (скопировано из index.html для единообразия) -->
     <div class="sidebar">
         <h2>Шифры и задания</h2>
         <ul>
@@ -37,10 +36,10 @@
         <section id="instructions">
             <div class="card quest-intro">
                 <h2>Инструкция</h2>
-                <p>Вы - команда криптоаналитиков. Перед вами 5 зашифрованных сообщений. Используйте все изученные методы, чтобы расшифровать их и найти финальный код.</p>
-                <p><strong>Время на выполнение:</strong> 30 минут</p>
-                <p><strong>Количество заданий:</strong> 5</p>
-                <p><strong>Финальная цель:</strong> Найти секретную фразу из всех расшифрованных сообщений</p>
+                <p>Перед вами 4 зашифрованных сообщения. Используйте все изученные методы, чтобы расшифровать их и найти финальный код.</p>
+                <p><strong>Время на выполнение:</strong> 20 минут</p>
+                <p><strong>Количество заданий:</strong> 4</p>
+                <p><strong>Финальная цель:</strong> Собрать финальный код из первых букв расшифрованных слов</p>
             </div>
         </section>
 
@@ -50,8 +49,8 @@
             <div class="quest-card">
                 <div class="quest-number">Задание 1</div>
                 <h3>Определите тип шифра</h3>
-                <p><strong>Зашифрованное сообщение:</strong> "ЦЫВМРЫВМПТ"</p>
-                <p><strong>Подсказка:</strong> ключ — "ВОЗРОЖДЕНИЕ"</p>
+                <p><strong>Зашифрованное сообщение:</strong> "ЛНБЯОМНБ"</p>
+                <p><strong>Подсказка:</strong> ключ — "КЛЮЧ"</p>
                 
                 <div class="quest-input">
                     <input type="text" id="quest1" placeholder="Какой шифр использовался?">
@@ -62,9 +61,9 @@
 
             <div class="quest-card">
                 <div class="quest-number">Задание 2</div>
-                <h3>Криптоанализ</h3>
-                <p><strong>Зашифрованное сообщение:</strong> "ГЖЕФКУ ЗПМХФЕВТ"</p>
-                <p><strong>Подсказка:</strong> использовался шифр Цезаря</p>
+                <h3>Криптоанализ (шифр Цезаря)</h3>
+                <p><strong>Зашифрованное сообщение:</strong> "НУЛТХС"</p>
+                <p><strong>Подсказка:</strong> сдвиг на 3 позиции назад (расшифровка)</p>
                 
                 <div class="quest-input">
                     <input type="text" id="quest2" placeholder="Расшифрованное сообщение">
@@ -76,7 +75,7 @@
             <div class="quest-card">
                 <div class="quest-number">Задание 3</div>
                 <h3>Шифр Атабаш</h3>
-                <p><strong>Зашифрованное сообщение:</strong> "РП ОЖХГМХГЗГВ"</p>
+                <p><strong>Зашифрованное сообщение:</strong> "ЕПЛОЯ"</p>
                 
                 <div class="quest-input">
                     <input type="text" id="quest3" placeholder="Расшифрованное сообщение">
@@ -88,8 +87,8 @@
             <div class="quest-card">
                 <div class="quest-number">Задание 4</div>
                 <h3>Шифр Виженера</h3>
-                <p><strong>Зашифрованное сообщение:</strong> "ЪФТСВЁ"</p>
-                <p><strong>Ключ:</strong> "МАТЕМАТИКА"</p>
+                <p><strong>Зашифрованное сообщение:</strong> "ГФТЗ"</p>
+                <p><strong>Ключ:</strong> "КЛЮЧ"</p>
                 
                 <div class="quest-input">
                     <input type="text" id="quest4" placeholder="Расшифрованное слово">
@@ -97,27 +96,16 @@
                 </div>
                 <div class="game-result" id="questResult4"></div>
             </div>
-
-            <div class="quest-card">
-                <div class="quest-number">Задание 5</div>
-                <h3>Создайте свой шифр</h3>
-                <p>Придумайте и опишите свой собственный шифр. Используйте любые математические операции или алгоритмы.</p>
-                
-                <div class="quest-input">
-                    <textarea id="quest5" rows="3" placeholder="Опишите ваш шифр..."></textarea>
-                    <button onclick="submitQuest5()">Отправить</button>
-                </div>
-                <div class="game-result" id="questResult5"></div>
-            </div>
         </section>
 
         <section id="final-code">
             <div class="card final-code-card">
                 <h2>Финальный код</h2>
-                <p>Соберите первые буквы всех расшифрованных сообщений из заданий 1-4:</p>
+                <p>Соберите <strong>первые буквы</strong> всех расшифрованных сообщений из заданий 1-4:</p>
+                <p><small>Пример: если расшифрованные слова "МАМА", "ПАПА", "СЫН", "ДОЧЬ" → код = МПСД</small></p>
                 
                 <div class="code-input">
-                    <input type="text" id="finalCode" placeholder="Например: КРИП">
+                    <input type="text" id="finalCode" placeholder="Введите финальный код из 4 букв">
                     <button onclick="checkFinalCode()">Проверить финальный код</button>
                 </div>
                 <div class="game-result" id="finalResult"></div>
@@ -126,7 +114,7 @@
                     <h3>🎉 Поздравляем!</h3>
                     <p>Вы успешно прошли курс криптографии!</p>
                     <p>Ваш финальный код: <strong id="codeDisplay"></strong></p>
-                    <p>Секретная фраза: <strong>"КРИПТОГРАФИЯ - ЭТО ИСКУССТВО"</strong></p>
+                    <p>Секретная фраза: <strong>"ШИФРЫ ОКРУЖАЮТ НАС"</strong></p>
                     <button onclick="printCertificate()">🖨️ Распечатать сертификат</button>
                 </div>
             </div>
@@ -145,93 +133,75 @@
         </footer>
     </div>
 
-        <script>
-        // Функции для финального квеста
-        
+    <script>
+        // Задание 1: определить шифр Виженера
         function checkQuest1() {
             const answer = document.getElementById('quest1').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult1');
-            
-            if (answer === "ВИЖЕНЕР" || answer === "ШИФР ВИЖЕНЕРА" || answer === "ВИЖИНЕРА") {
-                resultDiv.innerHTML = '✅ Верно! Это шифр Виженера';
+            if (answer === "ВИЖЕНЕРА" || answer === "ВИЖЕНЕР" || answer === "ШИФР ВИЖЕНЕРА") {
+                resultDiv.innerHTML = '✅ Верно! Это шифр Виженера. Первая буква: В';
                 resultDiv.className = 'game-result success';
             } else {
-                resultDiv.innerHTML = '❌ Вспомните, какой шифр использует ключевое слово. Подсказка: он полиалфавитный.';
+                resultDiv.innerHTML = '❌ Неверно. Используется ключевое слово "КЛЮЧ". Это полиалфавитный шифр.';
                 resultDiv.className = 'game-result error';
             }
         }
-        
+
+        // Задание 2: Цезарь, сдвиг -3, НУЛТХС → КРИПТО
         function checkQuest2() {
             const answer = document.getElementById('quest2').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult2');
-            
-            if (answer === "ДОБРЫЙ ДЕНЬ" || answer === "ДОБРЫЙДЕНЬ") {
-                resultDiv.innerHTML = '✅ Отлично! "ГЖЕФКУ ЗПМХФЕВТ" → "ДОБРЫЙ ДЕНЬ" (сдвиг +3)';
+            if (answer === "КРИПТО") {
+                resultDiv.innerHTML = '✅ Отлично! "НУЛТХС" со сдвигом -3 → "КРИПТО". Первая буква: К';
                 resultDiv.className = 'game-result success';
             } else {
-                resultDiv.innerHTML = '❌ Попробуйте сдвиг на 3 позиции (шифр Цезаря)';
+                resultDiv.innerHTML = '❌ Неверно. Попробуйте сдвинуть каждую букву на 3 позиции назад в русском алфавите.';
                 resultDiv.className = 'game-result error';
             }
         }
-        
+
+        // Задание 3: Атабаш, ЕПЛОЯ → ШКОЛА
         function checkQuest3() {
             const answer = document.getElementById('quest3').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult3');
-            
-            if (answer === "МИ КРИПТОГРАФ" || answer === "МИКРИПТОГРАФ") {
-                resultDiv.innerHTML = '✅ Правильно! "РП ОЖХГМХГЗГВ" → "МИ КРИПТОГРАФ" (А↔Я, Б↔Ю, ...)';
+            if (answer === "ШКОЛА") {
+                resultDiv.innerHTML = '✅ Правильно! "ЕПЛОЯ" по шифру Атабаш → "ШКОЛА". Первая буква: Ш';
                 resultDiv.className = 'game-result success';
             } else {
-                resultDiv.innerHTML = '❌ Примените шифр Атабаш: замените каждую букву на симметричную от конца алфавита';
+                resultDiv.innerHTML = '❌ Неверно. Атабаш: А↔Я, Б↔Ю, В↔Э...';
                 resultDiv.className = 'game-result error';
             }
         }
-        
+
+        // Задание 4: Виженер, ключ КЛЮЧ, ГФТЗ → ШИФР
         function checkQuest4() {
             const answer = document.getElementById('quest4').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult4');
-            
-            if (answer === "ЦИФРА") {
-                resultDiv.innerHTML = '✅ Отлично! "ЪФТСВЁ" с ключом "МАТЕМАТИКА" → "ЦИФРА"';
+            if (answer === "ШИФР") {
+                resultDiv.innerHTML = '✅ Отлично! "ГФТЗ" + ключ "КЛЮЧ" → "ШИФР". Первая буква: Ш';
                 resultDiv.className = 'game-result success';
             } else {
-                resultDiv.innerHTML = '❌ Вычтите ключ из шифра (используйте таблицу Виженера или формулу)';
+                resultDiv.innerHTML = '❌ Неверно. Используйте таблицу Виженера: из буквы шифротекста вычесть букву ключа.';
                 resultDiv.className = 'game-result error';
             }
         }
-        
-        function submitQuest5() {
-            const answer = document.getElementById('quest5').value.trim();
-            const resultDiv = document.getElementById('questResult5');
-            
-            if (answer.length >= 20) {
-                resultDiv.innerHTML = '✅ Спасибо за ваш шифр! Отличное криптографическое творчество! Теперь попробуйте зашифровать им сообщение для друга.';
-                resultDiv.className = 'game-result success';
-            } else if (answer.length > 0 && answer.length < 20) {
-                resultDiv.innerHTML = '✅ Интересная идея! Попробуйте описать её немного подробнее (минимум 20 символов).';
-                resultDiv.className = 'game-result success';
-            } else {
-                resultDiv.innerHTML = '❌ Пожалуйста, опишите свой шифр подробнее, укажите правило шифрования.';
-                resultDiv.className = 'game-result error';
-            }
-        }
-        
+
+        // Финальный код: В (Виженер) + К (Крипто) + Ш (Школа) + Ш (Шифр) = ВКШШ
         function checkFinalCode() {
             const answer = document.getElementById('finalCode').value.trim().toUpperCase();
             const resultDiv = document.getElementById('finalResult');
-            
-            if (answer === "КРИП" || answer === "ВДМЦ") {
-                resultDiv.innerHTML = '✅ БРАВО! Вы нашли финальный код!';
+            if (answer === "ВКШШ") {
+                resultDiv.innerHTML = '✅ БРАВО! Финальный код верный!';
                 resultDiv.className = 'game-result success';
-                
                 document.getElementById('certificate').style.display = 'block';
                 document.getElementById('codeDisplay').textContent = answer;
             } else {
-                resultDiv.innerHTML = '❌ Неправильно. Соберите первые буквы расшифрованных фраз из заданий 1-4. Подсказка: 1) ВиЖенер → В, 2) ДОбрый день → Д, 3) МИ криптограф → М, 4) Цифра → Ц. Получится ВДМЦ. Или если считать по-другому: КРИПТОГРАФИЯ → К, РАЗГАДКА → Р, ИСКУССТВО → И, ПОБЕДА → П → КРИП.';
+                resultDiv.innerHTML = '❌ Неверно. Первые буквы: Виженер → В, Крипто → К, Школа → Ш, Шифр → Ш. Получится ВКШШ';
                 resultDiv.className = 'game-result error';
             }
         }
-        
+
+        // Печать сертификата
         function printCertificate() {
             const codeValue = document.getElementById('codeDisplay').innerText;
             const printContent = `
@@ -274,14 +244,13 @@
                 </body>
                 </html>
             `;
-            
             const printWindow = window.open('', '_blank');
             printWindow.document.write(printContent);
             printWindow.document.close();
             printWindow.print();
         }
-        
-        // Дополнительная функция для автопроверки при нажатии Enter
+
+        // Enter на полях ввода
         document.querySelectorAll('.quest-input input').forEach((input, index) => {
             input.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
@@ -290,8 +259,7 @@
                 }
             });
         });
-        
-        // Для финального поля
+
         const finalInput = document.getElementById('finalCode');
         if (finalInput) {
             finalInput.addEventListener('keypress', function(e) {
