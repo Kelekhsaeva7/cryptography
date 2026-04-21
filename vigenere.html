@@ -50,7 +50,7 @@
                 
                 <div class="task">
                     <p><strong>Задание 1:</strong> Зашифруйте слово "ЗАДАЧА" с ключом "РУЧКА"</p>
-                    <p class="hint">💡 Подсказка: А=0, Б=1, В=2, ... Я=32</p>
+                    <p class="hint">Подсказка: А=0, Б=1, В=2, ... Я=32</p>
                     <div class="game-input">
                         <input type="text" id="task1" placeholder="Введите зашифрованное слово">
                         <button onclick="checkTask1()">Проверить</button>
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="task">
-                    <p><strong>Задание 2:</strong> Расшифруйте слово "ЙАХЕЪЧДЙА" с ключом "ЗАДАЧА"</p>
+                    <p><strong>Задание 2:</strong> Расшифруйте слово "ФАЦЕДАЪИО" с ключом "ЗАДАЧА"</p>
                     <div class="game-input">
                         <input type="text" id="task2" placeholder="Введите расшифрованное слово">
                         <button onclick="checkTask2()">Проверить</button>
@@ -73,7 +73,7 @@
             <h2>Таблица Виженера</h2>
             <div class="card">
                 <img src="media/vigenere-table.png" alt="Таблица Виженера" style="max-width: 600px;">
-                <p class="note">💡 Таблица показывает, как шифровать буквы: находите букву текста в строке, букву ключа в столбце, их пересечение даёт зашифрованную букву.</p>
+                <p class="note">Таблица показывает, как шифровать буквы: находите букву текста в строке, букву ключа в столбце, их пересечение даёт зашифрованную букву.</p>
             </div>
         </section>
 
@@ -105,13 +105,13 @@
         
         function checkTask1() {
             const answer = document.getElementById('task1').value.toUpperCase();
-            const correct = "ЮДДЫР";
+            const correct = "ШУЫКЧР";
             
             if (answer === correct) {
-                document.getElementById('result1').innerHTML = '✅ Верно! "ЗАДАЧА" с ключом "РУЧКА" → "ЮДДЫР"';
+                document.getElementById('result1').innerHTML = 'Верно! "ЗАДАЧА" с ключом "РУЧКА" → "ШУЫКЧР"';
                 document.getElementById('result1').className = 'game-result success';
             } else {
-                document.getElementById('result1').innerHTML = '❌ Попробуйте еще раз. З(8)+Р(17)=Ю(31)';
+                document.getElementById('result1').innerHTML = 'Попробуйте еще раз. З(8)+Р(17)=Ш(25)';
                 document.getElementById('result1').className = 'game-result error';
             }
         }
@@ -121,10 +121,10 @@
             const correct = "МАТЕМАТИКА";
             
             if (answer === correct) {
-                document.getElementById('result2').innerHTML = '✅ Отлично! Вы расшифровали сообщение';
+                document.getElementById('result2').innerHTML = 'Отлично! Вы расшифровали сообщение';
                 document.getElementById('result2').className = 'game-result success';
             } else {
-                document.getElementById('result2').innerHTML = '❌ Неправильно. Й(10)-З(8)=М(13)';
+                document.getElementById('result2').innerHTML = 'Неправильно. Ф(21)-З(8)=М(13)';
                 document.getElementById('result2').className = 'game-result error';
             }
         }
