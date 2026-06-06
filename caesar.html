@@ -6,6 +6,167 @@
     <title>Шифр Цезаря - Криптография для школьников</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        /* Дополнительные стили для интерактива */
+        .cipher-wheel {
+            background: linear-gradient(135deg, #f5f0e8, #e8dcc8);
+            border-radius: 50%;
+            width: 250px;
+            height: 250px;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 3px solid #214d6c;
+        }
+        
+        .wheel-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            background: #214d6c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        .wheel-arrow {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #f0b54d;
+            z-index: 10;
+        }
+        
+        .shift-slider {
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .shift-value {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #214d6c;
+        }
+        
+        .interactive-card {
+            background: linear-gradient(135deg, #fff, #f8f4ec);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .letter-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .letter-card {
+            background: #214d6c;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .letter-card:hover {
+            transform: scale(1.05);
+            background: #f0b54d;
+            color: #214d6c;
+        }
+        
+        .letter-card.selected {
+            background: #f0b54d;
+            color: #214d6c;
+            box-shadow: 0 0 15px rgba(240, 181, 77, 0.5);
+        }
+        
+        .encrypt-preview {
+            background: #1a3d56;
+            color: #efe2d5;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 5px;
+            margin: 15px 0;
+        }
+        
+        .fact-card {
+            background: rgb(228, 214, 199);;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #f0b54d;
+        }
+        
+        .fact-card h4 {
+            color: #214d6c;
+            margin-bottom: 10px;
+        }
+        
+        .quick-test {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .test-btn {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .test-btn:hover {
+            background: #f0b54d;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .letter-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .cipher-wheel {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .wheel-inner {
+                width: 140px;
+                height: 140px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -27,19 +188,97 @@
             <p class="subtitle">Простейший шифр подстановки, названный в честь римского императора Юлия Цезаря</p>
         </header>
 
+        <!-- ТЕОРИЯ -->
         <section id="theory">
             <h2>Как работает шифр Цезаря?</h2>
             <div class="card">
                 <p>Каждая буква в слове сдвигается на определённое количество позиций в алфавите. Например, при сдвиге на 3:</p>
                 <div class="example">
                     <p><strong>А → Г, Б → Д, В → Е, ... Я → В</strong></p>
-                    <p>Слово "ПРИВЕТ" становится "ТУЛЗИХ"</p>
+                    <p>Слово <strong>"ПРИВЕТ"</strong> → <strong>"ТУЛЗИХ"</strong></p>
                 </div>
             </div>
         </section>
 
+        <!-- ИСТОРИЧЕСКИЙ КОНТЕКСТ -->
+        <section>
+            <h2>Исторический контекст</h2>
+            <div class="fact-card">
+                <h4>Юлий Цезарь и его шифр</h4>
+                <p>Юлий Цезарь использовал шифр со сдвигом 3 для защиты военных сообщений. Это был один из первых известных шифров в истории! Историк Светоний писал, что Цезарь "заменял буквы алфавита так, чтобы ни одно слово не могло быть прочитано".</p>
+            </div>
+            <div class="fact-card">
+                <h4>Древний Рим</h4>
+                <p>Шифр помогал Цезарю передавать секретные приказы генералам на поле боя. Если гонца перехватывали враги, они не могли понять содержание сообщения.</p>
+            </div>
+            <div class="fact-card">
+                <h4>Интересный факт</h4>
+                <p>Шифр Цезаря использовался вплоть до XX века! Даже в русской армии иногда применяли его модификации для передачи простых секретных сообщений.</p>
+            </div>
+        </section>
+
+        <!-- ИНТЕРАКТИВНОЕ КОЛЕСО ШИФРА -->
+        <section>
+            <h2>Интерактивное колесо шифра</h2>
+            <div class="interactive-card">
+                <p>Вращайте регулятор, чтобы увидеть, как меняется шифрование!</p>
+                <div class="cipher-wheel">
+                    <div class="wheel-arrow"></div>
+                    <div class="wheel-inner" id="wheelInner">
+                        Сдвиг<br>
+                        <span id="currentShift">3</span>
+                    </div>
+                </div>
+                <input type="range" id="shiftSlider" class="shift-slider" min="0" max="32" value="3">
+                <div class="shift-value">
+                    Сдвиг: <span id="shiftValue">3</span>
+                </div>
+                <div class="encrypt-preview" id="previewText">
+                    ПРИВЕТ → ТУЛЗИХ
+                </div>
+                <p class="note"> Попробуйте изменить сдвиг — пример шифрования обновится автоматически!</p>
+            </div>
+        </section>
+
+        
+
+        <!-- ИНТЕРАКТИВНАЯ ТАБЛИЦА БУКВ -->
+        <section>
+            <h2>Интерактивная таблица шифрования</h2>
+            <div class="interactive-card">
+                <p>Нажмите на любую букву, чтобы увидеть, во что она превратится при текущем сдвиге!</p>
+                <div class="letter-grid" id="letterGrid"></div>
+                <div class="encrypt-preview" id="selectedLetterPreview">
+                     Нажмите на букву
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- ИНТЕРАКТИВНЫЙ ШИФРАТОР -->
+        <section>
+            <h2>Онлайн-шифратор</h2>
+            <div class="card">
+                <p>Введите своё сообщение и выберите сдвиг, чтобы зашифровать или расшифровать его!</p>
+                <div class="task">
+                    <p><strong>Ваше сообщение:</strong></p>
+                    <input type="text" id="textInput" placeholder="Введите слово или фразу..." value="КРИПТОГРАФИЯ">
+                    <p><strong>Сдвиг:</strong></p>
+                    <input type="number" id="shiftInput" min="0" max="32" value="3">
+                    <div style="display: flex; gap: 10px; margin: 15px 0;">
+                        <button onclick="encryptText()">Зашифровать</button>
+                        <button onclick="decryptText()">Расшифровать</button>
+                    </div>
+                    <p><strong>Результат:</strong></p>
+                    <div class="encrypt-preview" id="textResult"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПРАКТИЧЕСКИЕ ЗАДАНИЯ -->
         <section id="practice">
-            <h2>Практическое задание</h2>
+            <h2>Практические задания</h2>
             
             <div class="card">
                 <h3>Мини-игра: Шифруем сообщения</h3>
@@ -61,19 +300,51 @@
                     </div>
                     <div class="game-result" id="result2"></div>
                 </div>
+
+                <div class="task">
+                    <p><strong>Задание 3 (со звездочкой ⭐):</strong> Расшифруйте секретное сообщение: <strong>"ФЛУЖЦЙП"</strong>. Подсказка: это слово, связанное с математикой, сдвиг 4.</p>
+                    <div class="game-input">
+                        <input type="text" id="task3" placeholder="Введите расшифрованное слово">
+                        <button onclick="checkTask3()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result3"></div>
+                </div>
+
+                <div class="quick-test">
+                    <div class="test-btn" onclick="quickTest(1)">🔢 Сдвиг 1: "АБВ" → ?</div>
+                    <div class="test-btn" onclick="quickTest(2)">🔢 Сдвиг 5: "ШКОЛА" → ?</div>
+                    <div class="test-btn" onclick="quickTest(3)">🔢 Сдвиг 10: "ЦЕЗАРЬ" → ?</div>
+                </div>
             </div>
+        </section>
 
-
+        <!-- УЯЗВИМОСТИ -->
         <section id="vulnerability">
             <h2>Уязвимости шифра Цезаря</h2>
             <div class="card">
                 <h3>Частотный анализ</h3>
                 <p>Шифр Цезаря легко взломать с помощью частотного анализа. В русском языке:</p>
                 <ul>
-                    <li>Чаще всего встречаются: О, Е, А, И, Н</li>
-                    <li>Реже всего: Ф, Ъ, Ё</li>
+                    <li>Чаще всего встречаются: <strong>О, Е, А, И, Н</strong></li>
+                    <li>Реже всего: <strong>Ф, Ъ, Ё</strong></li>
                 </ul>
                 <p>Если в зашифрованном тексте чаще всего буква "Г" → возможно, это зашифрованная "О"</p>
+                <div class="fact-card" style="margin-top: 15px;">
+                    <h4>Как взломать шифр Цезаря?</h4>
+                    <p>Всего 33 варианта сдвига! Можно просто перебрать все варианты — один из них даст осмысленный текст. Это называется <strong>"метод грубой силы" (brute force)</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПОЛЕЗНЫЕ ССЫЛКИ -->
+        <section>
+            <h2>Полезные ссылки</h2>
+            <div class="card">
+                <ul>
+                    <li><a href="https://ru.wikipedia.org/wiki/%D0%A8%D0%B8%D1%84%D1%80_%D0%A6%D0%B5%D0%B7%D0%B0%D1%80%D1%8F" target="_blank">Подробнее о шифре Цезаря на Wikipedia</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=Zs6nY4nHlQY" target="_blank">Видео: Как работает шифр Цезаря (YouTube)</a></li>
+                    <li><a href="https://cryptography.ru/caesar-cipher" target="_blank">Интерактивный урок по шифрам</a></li>
+                </ul>
             </div>
         </section>
 
@@ -91,7 +362,87 @@
 
     <script src="script.js"></script>
     <script>
-        // Функции для страницы Цезаря
+        const ALPHABET = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+        
+        // Функция шифрования
+        function caesarEncrypt(text, shift) {
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i].toUpperCase();
+                const index = ALPHABET.indexOf(char);
+                if (index !== -1) {
+                    const newIndex = (index + shift) % ALPHABET.length;
+                    result += ALPHABET[newIndex];
+                } else {
+                    result += char;
+                }
+            }
+            return result;
+        }
+        
+        // Функция дешифрования
+        function caesarDecrypt(text, shift) {
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i].toUpperCase();
+                const index = ALPHABET.indexOf(char);
+                if (index !== -1) {
+                    const newIndex = (index - shift + ALPHABET.length) % ALPHABET.length;
+                    result += ALPHABET[newIndex];
+                } else {
+                    result += char;
+                }
+            }
+            return result;
+        }
+        
+        // Колесо шифра
+        const shiftSlider = document.getElementById('shiftSlider');
+        const shiftValue = document.getElementById('shiftValue');
+        const currentShift = document.getElementById('currentShift');
+        const previewText = document.getElementById('previewText');
+        
+        function updatePreview() {
+            const shift = parseInt(shiftSlider.value);
+            shiftValue.textContent = shift;
+            currentShift.textContent = shift;
+            const encrypted = caesarEncrypt('ПРИВЕТ', shift);
+            previewText.innerHTML = `ПРИВЕТ → ${encrypted}`;
+            generateLetterGrid(shift);
+        }
+        
+        shiftSlider.addEventListener('input', updatePreview);
+        updatePreview();
+        
+        // Генерация таблицы букв
+        function generateLetterGrid(shift) {
+            const grid = document.getElementById('letterGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < ALPHABET.length; i++) {
+                const letter = ALPHABET[i];
+                const encrypted = ALPHABET[(i + shift) % ALPHABET.length];
+                const div = document.createElement('div');
+                div.className = 'letter-card';
+                div.innerHTML = `${letter}<br><span style="font-size:0.7rem;">→ ${encrypted}</span>`;
+                div.onclick = () => {
+                    document.getElementById('selectedLetterPreview').innerHTML = `🔐 Буква "${letter}" при сдвиге ${shift} превращается в "${encrypted}"`;
+                    document.querySelectorAll('.letter-card').forEach(c => c.classList.remove('selected'));
+                    div.classList.add('selected');
+                };
+                grid.appendChild(div);
+            }
+        }
+        
+        // Быстрые тесты
+        function quickTest(num) {
+            let result = '';
+            if (num === 1) result = caesarEncrypt('АБВ', 1);
+            if (num === 2) result = caesarEncrypt('ШКОЛА', 5);
+            if (num === 3) result = caesarEncrypt('ЦЕЗАРЬ', 10);
+            alert(`Результат: ${result}`);
+        }
+        
+        // Задание 1
         function checkTask1() {
             const answer = document.getElementById('task1').value.toUpperCase();
             const correct = "РЁИРЁФНПФ";
@@ -100,63 +451,51 @@
                 document.getElementById('result1').innerHTML = '✅ Верно! "МАТЕМАТИКА" → "РЁИРЁФНПФ"';
                 document.getElementById('result1').className = 'game-result success';
             } else {
-                document.getElementById('result1').innerHTML = '❌ Попробуйте еще раз';
+                document.getElementById('result1').innerHTML = '❌ Попробуйте еще раз. Подсказка: при сдвиге 5 М→Р, А→Ё, Т→И...';
                 document.getElementById('result1').className = 'game-result error';
             }
         }
         
+        // Задание 2
         function checkTask2() {
             const answer = document.getElementById('task2').value.toUpperCase();
             const correct = "ШИФРОВКА";
             
             if (answer === correct) {
-                document.getElementById('result2').innerHTML = '✅ Отлично! "ЙЕЗКШЭ" → "ШИФРОВКА"';
+                document.getElementById('result2').innerHTML = '✅ Отлично! "ЙЕЗКШЭ" → "ШИФРОВКА" (Й→Ш, Е→И, З→Ф, К→Р, Ш→О, Э→В, К→Р, А→К, ?)';
                 document.getElementById('result2').className = 'game-result success';
             } else {
-                document.getElementById('result2').innerHTML = '❌ Неправильно. Подсказка: Й→Ш';
+                document.getElementById('result2').innerHTML = '❌ Неправильно. Подсказка: Й→Ш, Е→И, З→Ф, К→Р, Ш→О, Э→В...';
                 document.getElementById('result2').className = 'game-result error';
             }
         }
         
-        function encryptText() {
-            const text = document.getElementById('textInput').value.toUpperCase();
-            const shift = parseInt(document.getElementById('shiftInput').value);
-            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-            let result = '';
+        // Задание 3 со звездочкой
+        function checkTask3() {
+            const answer = document.getElementById('task3').value.toUpperCase();
+            const correct = "ФОРМУЛА";
             
-            for (let i = 0; i < text.length; i++) {
-                const char = text[i];
-                const index = alphabet.indexOf(char);
-                
-                if (index !== -1) {
-                    const newIndex = (index + shift) % alphabet.length;
-                    result += alphabet[newIndex];
-                } else {
-                    result += char;
-                }
+            if (answer === correct) {
+                document.getElementById('result3').innerHTML = '✅ Поздравляю! "ФЛУЖЦЙП" → "ФОРМУЛА" (сдвиг 4, Ф→Ф, Л→О, У→Р, Ж→М, Ц→У, Й→Л, П→А) ⭐';
+                document.getElementById('result3').className = 'game-result success';
+            } else {
+                document.getElementById('result3').innerHTML = '❌ Попробуйте еще раз. Это математический термин из 7 букв!';
+                document.getElementById('result3').className = 'game-result error';
             }
-            
+        }
+        
+        // Онлайн-шифратор
+        function encryptText() {
+            const text = document.getElementById('textInput').value;
+            const shift = parseInt(document.getElementById('shiftInput').value) || 0;
+            const result = caesarEncrypt(text, shift);
             document.getElementById('textResult').innerHTML = result;
         }
         
         function decryptText() {
-            const text = document.getElementById('textInput').value.toUpperCase();
-            const shift = parseInt(document.getElementById('shiftInput').value);
-            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-            let result = '';
-            
-            for (let i = 0; i < text.length; i++) {
-                const char = text[i];
-                const index = alphabet.indexOf(char);
-                
-                if (index !== -1) {
-                    const newIndex = (index - shift + alphabet.length) % alphabet.length;
-                    result += alphabet[newIndex];
-                } else {
-                    result += char;
-                }
-            }
-            
+            const text = document.getElementById('textInput').value;
+            const shift = parseInt(document.getElementById('shiftInput').value) || 0;
+            const result = caesarDecrypt(text, shift);
             document.getElementById('textResult').innerHTML = result;
         }
     </script>
