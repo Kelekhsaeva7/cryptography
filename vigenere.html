@@ -6,6 +6,172 @@
     <title>Шифр Виженера - Криптография для школьников</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        /* Дополнительные стили для страницы Виженера */
+        .vigenere-wheel {
+            background: linear-gradient(135deg, #214d6c, #1a3d56);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .key-display {
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .key-letters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .key-letter {
+            background: #f0b54d;
+            color: #214d6c;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .vigenere-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+        
+        .grid-cell {
+            background: rgba(255,255,255,0.9);
+            padding: 8px 5px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .grid-cell:hover {
+            transform: scale(1.05);
+            background: #f0b54d;
+            color: #214d6c;
+        }
+        
+        .fact-card {
+            background: rgb(228, 214, 199);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #f0b54d;
+            transition: transform 0.2s ease;
+        }
+        
+        .fact-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .fact-card h4 {
+            color: #063a5c;
+            margin-bottom: 10px;
+        }
+        
+        .interactive-card {
+            background: linear-gradient(135deg, #dccfb9, #f8f4ec);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .key-input-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .key-input-group input {
+            flex: 2;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        
+        .demo-text {
+            background: #1a3d56;
+            color: #efe2d5;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .vigenere-table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .vigenere-table {
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin: 0 auto;
+        }
+        
+        .vigenere-table th,
+        .vigenere-table td {
+            border: 1px solid #214d6c;
+            padding: 6px 8px;
+            text-align: center;
+        }
+        
+        .vigenere-table th {
+            background: #214d6c;
+            color: white;
+        }
+        
+        .vigenere-table td {
+            background: rgba(255,255,255,0.8);
+        }
+        
+        /* Единый шрифт для всех элементов ввода */
+        input, textarea, select, button {
+            font-family: inherit;
+        }
+        
+        @media (max-width: 768px) {
+            .key-letter {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .vigenere-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .demo-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -27,30 +193,49 @@
             <p class="subtitle">Полиалфавитный шифр XVI века, долгое время считавшийся невзламываемым</p>
         </header>
 
+        <!-- ТЕОРИЯ -->
         <section id="theory">
             <h2>Как работает шифр Виженера?</h2>
             <div class="card">
-                <p>Использует ключевое слово для определения величины сдвига каждой буквы. Каждая буква ключа указывает, на сколько сдвигать соответствующую букву текста.</p>
+                <p>Этот шифр использует <strong>ключевое слово</strong> для определения величины сдвига каждой буквы. В отличие от шифра Цезаря, где все буквы сдвигаются одинаково, здесь каждая буква может сдвигаться на разное число!</p>
                 
                 <div class="example">
-                    <h3>Пример:</h3>
-                    <p><strong>Текст:</strong> КОД</p>
-                    <p><strong>Ключ:</strong> КЛЮЧ (повторяем: КЛЮ)</p>
-                    <p><strong>Шифрование:</strong> К(11) + К(11) = 22 → Х, О(15) + Л(12) = 27 → Ъ, Д(4) + Ю(31) = 35 → 35-33=2 → В</p>
+                    <p><strong>Пример шифрования:</strong></p>
+                    <p><strong>Сообщение:</strong> КОД</p>
+                    <p><strong>Ключ:</strong> КЛЮЧ (повторяется: К Л Ю)</p>
+                    <p><strong>Вычисления:</strong> К(11) + К(11) = 22 → Х, О(15) + Л(12) = 27 → Ъ, Д(4) + Ю(31) = 35 → 35-33=2 → В</p>
                     <p><strong>Результат:</strong> ХЪВ</p>
                 </div>
             </div>
         </section>
 
+        <!-- ИСТОРИЧЕСКИЙ КОНТЕКСТ -->
+        <section>
+            <h2>Историческая справка</h2>
+            <div class="fact-card">
+                <h4>Блез де Виженер</h4>
+                <p>Французский дипломат Блез де Виженер опубликовал описание этого шифра в 1586 году. Хотя похожие методы существовали и раньше, именно его имя закрепилось за этим шифром.</p>
+            </div>
+            <div class="fact-card">
+                <h4>"Le chiffre indéchiffrable"</h4>
+                <p>Шифр Виженера получил прозвище "Невзламываемый шифр" (Le chiffre indéchiffrable), так как почти 300 лет считался абсолютно стойким!</p>
+            </div>
+            <div class="fact-card">
+                <h4>Интересный факт</h4>
+                <p>Шифр был взломан только в XIX веке прусским офицером Фридрихом Казиски, который разработал метод, названный его именем. Этот метод вы изучите в следующем разделе!</p>
+            </div>
+        </section>
+
+        <!-- ПРАКТИЧЕСКИЕ ЗАДАНИЯ -->
         <section id="practice">
-            <h2>Практическое задание</h2>
+            <h2>Практические задания</h2>
             
             <div class="card">
-                <h3>Мини-игра: Шифр Виженера</h3>
+                <h3>Проверьте свои знания</h3>
                 
                 <div class="task">
-                    <p><strong>Задание 1:</strong> Зашифруйте слово "ЗАДАЧА" с ключом "РУЧКА"</p>
-                    <p class="hint">Подсказка: А=0, Б=1, В=2, ... Я=32</p>
+                    <p><strong>Задание 1:</strong> Зашифруйте слово <strong>"ЗАДАЧА"</strong> с ключом <strong>"РУЧКА"</strong></p>
+                    <p class="note">Подсказка: используйте таблицу или формулу: (буква_текста + буква_ключа) mod 33</p>
                     <div class="game-input">
                         <input type="text" id="task1" placeholder="Введите зашифрованное слово">
                         <button onclick="checkTask1()">Проверить</button>
@@ -59,21 +244,75 @@
                 </div>
 
                 <div class="task">
-                    <p><strong>Задание 2:</strong> Расшифруйте слово "ФАЦЕДАЪИО" с ключом "ЗАДАЧА"</p>
+                    <p><strong>Задание 2:</strong> Расшифруйте слово <strong>"ФАЦЕДАЪИО"</strong> с ключом <strong>"ЗАДАЧА"</strong></p>
                     <div class="game-input">
                         <input type="text" id="task2" placeholder="Введите расшифрованное слово">
                         <button onclick="checkTask2()">Проверить</button>
                     </div>
                     <div class="game-result" id="result2"></div>
                 </div>
+
+                <div class="task">
+                    <p><strong>Задание 3 (со звездочкой):</strong> Расшифруйте секретное сообщение <strong>"ЫПИЗЕФШЖ"</strong> с ключом <strong>"МАТЕМАТИКА"</strong></p>
+                    <div class="game-input">
+                        <input type="text" id="task3" placeholder="Введите расшифрованное слово">
+                        <button onclick="checkTask3()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result3"></div>
+                </div>
             </div>
+        </section>
 
+        <!-- ИНТЕРАКТИВНЫЙ ШИФРАТОР -->
+        <section>
+            <h2>Интерактивный шифратор Виженера</h2>
+            <div class="interactive-card">
+                <p>Введите сообщение и ключевое слово, чтобы зашифровать или расшифровать текст!</p>
+                
+                <div class="task">
+                    <p><strong>Ваше сообщение:</strong></p>
+                    <input type="text" id="textInput" placeholder="Введите слово или фразу..." value="КРИПТОГРАФИЯ">
+                    
+                    <p><strong>Ключевое слово:</strong></p>
+                    <div class="key-input-group">
+                        <input type="text" id="keyInput" placeholder="Введите ключ..." value="ШИФР">
+                        <div class="key-letters" id="keyLetters"></div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap;">
+                        <button onclick="encryptVigenere()">Зашифровать</button>
+                        <button onclick="decryptVigenere()">Расшифровать</button>
+                    </div>
+                    
+                    <p><strong>Результат:</strong></p>
+                    <div class="demo-text" id="textResult"></div>
+                </div>
+            </div>
+        </section>
 
+        <!-- ТАБЛИЦА ВИЖЕНЕРА -->
         <section id="table">
             <h2>Таблица Виженера</h2>
             <div class="card">
-                <img src="media/vigenere-table.png" alt="Таблица Виженера" style="max-width: 600px;">
-                <p class="note">Таблица показывает, как шифровать буквы: находите букву текста в строке, букву ключа в столбце, их пересечение даёт зашифрованную букву.</p>
+                <p>Таблица помогает быстро находить зашифрованные буквы: находите букву текста в строке, букву ключа в столбце — на пересечении будет зашифрованная буква.</p>
+                <div class="vigenere-table-container">
+                    <table class="vigenere-table" id="vigenereTable">
+                        <!-- Таблица будет сгенерирована JavaScript -->
+                    </table>
+                </div>
+                <p class="note">Кликните на любую ячейку, чтобы увидеть формулу шифрования!</p>
+            </div>
+        </section>
+
+        <!-- ПОЛЕЗНЫЕ ССЫЛКИ -->
+        <section>
+            <h2>Полезные ссылки</h2>
+            <div class="card">
+                <ul>
+                    <li><a href="https://ru.wikipedia.org/wiki/%D0%A8%D0%B8%D1%84%D1%80_%D0%92%D0%B8%D0%B6%D0%B5%D0%BD%D0%B5%D1%80%D0%B0" target="_blank">Подробнее о шифре Виженера на Wikipedia</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=SkJcmCaHqNU" target="_blank">Видео: Как работает шифр Виженера (YouTube)</a></li>
+                    <li><a href="https://cryptography.ru/vigenere-cipher" target="_blank">Интерактивный урок по шифру Виженера</a></li>
+                </ul>
             </div>
         </section>
 
@@ -90,19 +329,109 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
     <script>
-        // Функции для страницы Виженера
+        const ALPHABET = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+        
         function letterToNumber(letter) {
-            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-            return alphabet.indexOf(letter);
+            return ALPHABET.indexOf(letter);
         }
         
         function numberToLetter(number) {
-            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-            return alphabet[number % 33];
+            return ALPHABET[((number % 33) + 33) % 33];
         }
         
+        // Генерация таблицы Виженера
+        function generateVigenereTable() {
+            const table = document.getElementById('vigenereTable');
+            table.innerHTML = '';
+            
+            let headerRow = '<tr><th>↓Текст→Ключ</th>';
+            for (let i = 0; i < ALPHABET.length; i++) {
+                headerRow += `<th>${ALPHABET[i]}</th>`;
+            }
+            headerRow += '</tr>';
+            table.innerHTML = headerRow;
+            
+            for (let i = 0; i < ALPHABET.length; i++) {
+                let row = `<tr><th>${ALPHABET[i]}</th>`;
+                for (let j = 0; j < ALPHABET.length; j++) {
+                    const encrypted = ALPHABET[(i + j) % ALPHABET.length];
+                    row += `<td onclick="showCellInfo('${ALPHABET[i]}', '${ALPHABET[j]}', '${encrypted}')">${encrypted}</td>`;
+                }
+                row += '<tr>';
+                table.innerHTML += row;
+            }
+        }
+        
+        function showCellInfo(textLetter, keyLetter, encryptedLetter) {
+            const textNum = letterToNumber(textLetter);
+            const keyNum = letterToNumber(keyLetter);
+            alert(`Шифрование:\n"${textLetter}" (${textNum}) + "${keyLetter}" (${keyNum}) = ${textNum + keyNum} → ${encryptedLetter}`);
+        }
+        
+        // Обновление отображения ключа
+        function updateKeyDisplay() {
+            const key = document.getElementById('keyInput').value.toUpperCase();
+            const container = document.getElementById('keyLetters');
+            container.innerHTML = '';
+            for (let i = 0; i < Math.min(key.length, 10); i++) {
+                const letterDiv = document.createElement('div');
+                letterDiv.className = 'key-letter';
+                letterDiv.textContent = key[i];
+                container.appendChild(letterDiv);
+            }
+            if (key.length > 10) {
+                const moreDiv = document.createElement('div');
+                moreDiv.className = 'key-letter';
+                moreDiv.textContent = '+';
+                container.appendChild(moreDiv);
+            }
+        }
+        
+        // Функции шифрования/дешифрования
+        function encryptVigenere() {
+            const text = document.getElementById('textInput').value.toUpperCase();
+            const key = document.getElementById('keyInput').value.toUpperCase();
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const textChar = text[i];
+                const keyChar = key[i % key.length];
+                const textIndex = letterToNumber(textChar);
+                const keyIndex = letterToNumber(keyChar);
+                
+                if (textIndex !== -1 && keyIndex !== -1) {
+                    result += numberToLetter(textIndex + keyIndex);
+                } else {
+                    result += textChar;
+                }
+            }
+            
+            document.getElementById('textResult').innerHTML = result || 'Введите текст и ключ';
+        }
+        
+        function decryptVigenere() {
+            const text = document.getElementById('textInput').value.toUpperCase();
+            const key = document.getElementById('keyInput').value.toUpperCase();
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const textChar = text[i];
+                const keyChar = key[i % key.length];
+                const textIndex = letterToNumber(textChar);
+                const keyIndex = letterToNumber(keyChar);
+                
+                if (textIndex !== -1 && keyIndex !== -1) {
+                    result += numberToLetter(textIndex - keyIndex);
+                } else {
+                    result += textChar;
+                }
+            }
+            
+            document.getElementById('textResult').innerHTML = result || 'Введите текст и ключ';
+        }
+        
+        // Проверка заданий
         function checkTask1() {
             const answer = document.getElementById('task1').value.toUpperCase();
             const correct = "ШУЫКЧР";
@@ -111,7 +440,7 @@
                 document.getElementById('result1').innerHTML = 'Верно! "ЗАДАЧА" с ключом "РУЧКА" → "ШУЫКЧР"';
                 document.getElementById('result1').className = 'game-result success';
             } else {
-                document.getElementById('result1').innerHTML = 'Попробуйте еще раз. З(8)+Р(17)=Ш(25)';
+                document.getElementById('result1').innerHTML = 'Попробуйте еще раз. Подсказка: З(8)+Р(17)=Ш(25), А(0)+У(20)=У(20), Д(4)+Ч(24)=Ы(28)...';
                 document.getElementById('result1').className = 'game-result error';
             }
         }
@@ -121,59 +450,34 @@
             const correct = "МАТЕМАТИКА";
             
             if (answer === correct) {
-                document.getElementById('result2').innerHTML = 'Отлично! Вы расшифровали сообщение';
+                document.getElementById('result2').innerHTML = 'Отлично! "ФАЦЕДАЪИО" → "МАТЕМАТИКА"';
                 document.getElementById('result2').className = 'game-result success';
             } else {
-                document.getElementById('result2').innerHTML = 'Неправильно. Ф(21)-З(8)=М(13)';
+                document.getElementById('result2').innerHTML = 'Неправильно. Подсказка: Ф(21)-З(8)=М(13), А(0)-А(0)=А(0)...';
                 document.getElementById('result2').className = 'game-result error';
             }
         }
         
-        function encryptVigenere() {
-            const text = document.getElementById('textInput').value.toUpperCase();
-            const key = document.getElementById('keyInput').value.toUpperCase();
-            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-            let result = '';
+        function checkTask3() {
+            const answer = document.getElementById('task3').value.toUpperCase();
+            const correct = "КРИПТОГРАФИЯ";
             
-            for (let i = 0; i < text.length; i++) {
-                const textChar = text[i];
-                const keyChar = key[i % key.length];
-                const textIndex = alphabet.indexOf(textChar);
-                const keyIndex = alphabet.indexOf(keyChar);
-                
-                if (textIndex !== -1 && keyIndex !== -1) {
-                    const newIndex = (textIndex + keyIndex) % alphabet.length;
-                    result += alphabet[newIndex];
-                } else {
-                    result += textChar;
-                }
+            if (answer === correct) {
+                document.getElementById('result3').innerHTML = 'Поздравляю! "ЫПИЗЕФШЖ" → "КРИПТОГРАФИЯ"';
+                document.getElementById('result3').className = 'game-result success';
+            } else {
+                document.getElementById('result3').innerHTML = 'Попробуйте еще раз. Это слово из 13 букв, связанное с криптографией!';
+                document.getElementById('result3').className = 'game-result error';
             }
-            
-            document.getElementById('textResult').innerHTML = result;
         }
         
-        function decryptVigenere() {
-            const text = document.getElementById('textInput').value.toUpperCase();
-            const key = document.getElementById('keyInput').value.toUpperCase();
-            const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-            let result = '';
-            
-            for (let i = 0; i < text.length; i++) {
-                const textChar = text[i];
-                const keyChar = key[i % key.length];
-                const textIndex = alphabet.indexOf(textChar);
-                const keyIndex = alphabet.indexOf(keyChar);
-                
-                if (textIndex !== -1 && keyIndex !== -1) {
-                    const newIndex = (textIndex - keyIndex + alphabet.length) % alphabet.length;
-                    result += alphabet[newIndex];
-                } else {
-                    result += textChar;
-                }
-            }
-            
-            document.getElementById('textResult').innerHTML = result;
-        }
+        // События
+        document.getElementById('keyInput').addEventListener('input', updateKeyDisplay);
+        document.addEventListener('DOMContentLoaded', () => {
+            generateVigenereTable();
+            updateKeyDisplay();
+            encryptVigenere();
+        });
     </script>
 </body>
 </html>

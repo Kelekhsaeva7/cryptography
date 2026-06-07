@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'Roboto', Arial, sans-serif;
 }
+
 body {
     background-color: #efe2d5;
     color: #212123;
@@ -12,15 +13,8 @@ body {
     min-height: 100vh;
     position: relative;
 }
-/* Заголовок отдельно по центру */
-.main-header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-}
 
-
-/* Фоновый узор с элементами криптографии - привязан к body, двигается при скролле */
+/* Фоновый узор */
 body {
     background-image: 
         repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.08) 0px, rgba(139, 115, 85, 0.08) 2px, transparent 2px, transparent 8px),
@@ -30,7 +24,6 @@ body {
     background-attachment: fixed;
 }
 
-/* Дополнительный слой с символами */
 body::before {
     content: "🔐 🔑 🗝️ 🔒 🔓 ✦ ✧ ⚔️ 🛡️ 📜 ✏️";
     position: fixed;
@@ -39,11 +32,9 @@ body::before {
     font-size: 24px;
     opacity: 0.08;
     pointer-events: none;
-    white-space: pre;
     z-index: 0;
 }
 
-/* Простые иконки, разбросанные по фону */
 body::after {
     content: "";
     position: fixed;
@@ -63,7 +54,6 @@ body::after {
     z-index: 0;
 }
 
-/* Все основные элементы должны быть выше фона */
 .sidebar, .content, header, section, footer {
     position: relative;
     z-index: 1;
@@ -87,7 +77,6 @@ body::after {
     text-align: center;
     color: #efe2d5;
     font-weight: 700;
-    letter-spacing: 1px;
     padding-bottom: 15px;
     border-bottom: 2px solid rgba(239, 226, 213, 0.3);
 }
@@ -118,13 +107,12 @@ body::after {
     transform: translateX(5px);
 }
 
-/* Основной контент - на всю ширину */
+/* Основной контент */
 .content {
     margin-left: 260px;
     padding: 30px 40px;
     flex: 1;
     width: calc(100% - 260px);
-    max-width: none;
     background-color: rgba(239, 226, 213, 0.7);
     min-height: 100vh;
 }
@@ -139,7 +127,6 @@ body::after {
     color: #4d4d51;
     margin-bottom: 30px;
     font-size: 1.1rem;
-    font-weight: 400;
 }
 
 .content h2 {
@@ -159,15 +146,21 @@ body::after {
     font-size: 1.3rem;
 }
 
+.content h4 {
+    color: #2c3e50;
+    margin: 18px 0 10px 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
 .content p {
     margin-bottom: 18px;
     font-size: 1.12rem;
-    font-weight: 400;
     line-height: 1.7;
     color: #2c3e50;
 }
 
-/* Карточки - на всю ширину */
+/* Карточки */
 .card {
     background-color: rgb(228, 214, 199);
     border-radius: 12px;
@@ -175,14 +168,11 @@ body::after {
     margin: 25px 0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     border-left: 5px solid #09466f;
-    position: relative;
-    z-index: 2;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
 .card h3 {
@@ -192,7 +182,7 @@ body::after {
     font-weight: 700;
 }
 
-/* Сетка карточек - адаптивная */
+/* Сетка карточек */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -206,38 +196,30 @@ body::after {
     padding: 25px;
     text-decoration: none;
     color: inherit;
-    display: block;
     transition: all 0.3s ease;
     border: 1px solid #d4c5b0;
-    position: relative;
-    z-index: 2;
 }
 
 .nav-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 25px rgba(0,0,0,0.1);
     border-color: #1c5880;
-    background-color: #fffdf8;
 }
 
 .nav-card h3 {
     color: #2c3e50;
     margin-bottom: 12px;
-    font-weight: 700;
     font-size: 1.2rem;
 }
 
 .nav-card p {
     color: #7f8c8d;
     font-size: 0.9rem;
-    font-weight: 400;
-    margin-bottom: 0;
 }
 
 /* Hero секция */
 .hero {
     background: linear-gradient(135deg, #214d6c, #305975);
-    color: white;
     padding: 50px 40px;
     border-radius: 20px;
     margin-bottom: 40px;
@@ -248,7 +230,6 @@ body::after {
     color: white !important;
     border: none !important;
     margin-top: 0;
-    padding-bottom: 0;
 }
 
 .hero p {
@@ -274,7 +255,6 @@ body::after {
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s ease;
-    display: inline-block;
 }
 
 .hero-btn:hover {
@@ -284,9 +264,35 @@ body::after {
 
 .hero-btn.secondary {
     background: white;
+}
+
+/* Путь криптографа */
+.learning-path {
+    margin: 40px 0;
+}
+
+.path-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.path-step {
+    background: white;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 600;
     color: #214d6c;
 }
 
+.arrow {
+    font-size: 1.4rem;
+    color: #214d6c;
+    font-weight: bold;
+}
 
 /* Сложность заданий */
 .difficulty {
@@ -298,22 +304,11 @@ body::after {
     font-weight: bold;
 }
 
-.easy {
-    background: #d4edda;
-    color: #155724;
-}
+.easy { background: #d4edda; color: #155724; }
+.medium { background: #fff3cd; color: #856404; }
+.hard { background: #f8d7da; color: #721c24; }
 
-.medium {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.hard {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-/* Таймлайн истории */
+/* Таймлайн истории - оригинальный стиль */
 .timeline {
     display: flex;
     flex-direction: column;
@@ -331,18 +326,14 @@ body::after {
 
 /* Задания */
 .task {
-    background-color: rgb(212, 189, 160);
+    background-color: rgb(212, 195, 175);
     padding: 22px;
     border-radius: 10px;
     margin: 20px 0;
     border-left: 4px solid #1c5880;
 }
 
-.task p {
-    margin-bottom: 15px;
-}
-
-/* Элементы формы */
+/* Формы */
 input, textarea, select {
     width: 100%;
     padding: 12px 15px;
@@ -350,16 +341,12 @@ input, textarea, select {
     border: 2px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
-    transition: all 0.3s;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-weight: 400;
     background-color: #fff;
 }
 
 input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: #1c5880;
-    box-shadow: 0 0 0 3px rgba(28, 88, 128, 0.1);
 }
 
 button {
@@ -370,31 +357,16 @@ button {
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
-    transition: all 0.3s;
-    font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 600;
+    transition: all 0.3s;
 }
 
 button:hover {
     background: linear-gradient(135deg, #2c3e50, #3498db);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* Результаты */
-.result {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #e8f6f3;
-    border-radius: 10px;
-    border-left: 4px solid #1abc9c;
-}
-
-.result p {
-    margin: 0;
-    font-weight: 500;
-}
-
 .game-result {
     margin-top: 15px;
     padding: 12px 18px;
@@ -414,56 +386,7 @@ button:hover {
     border-left: 4px solid #dc3545;
 }
 
-/* Стили для квеста */
-.quest-card {
-    background-color: rgb(222, 204, 182);
-    border-radius: 12px;
-    padding: 28px;
-    margin: 25px 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border-left: 5px solid #063a5c;
-}
-
-.quest-number {
-    display: inline-block;
-    background-color: #063a5c;
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.quest-input {
-    display: flex;
-    gap: 12px;
-    margin: 15px 0;
-    flex-wrap: wrap;
-}
-
-.quest-input input, .quest-input textarea {
-    flex: 1;
-    min-width: 200px;
-}
-
-.quest-input button {
-    white-space: nowrap;
-}
-
-.code-input {
-    display: flex;
-    gap: 12px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-
-.code-input input {
-    flex: 1;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
+/* Навигационные кнопки */
 .nav-buttons {
     display: flex;
     justify-content: space-between;
@@ -478,46 +401,13 @@ button:hover {
     padding: 12px 28px;
     border-radius: 8px;
     text-decoration: none;
-    transition: all 0.3s;
-    font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 600;
-    display: inline-block;
+    transition: all 0.3s;
 }
 
 .nav-button:hover {
     background: linear-gradient(135deg, #2c3e50, #3498db);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.certificate {
-    background: linear-gradient(135deg, #f9f9f9, #e8f4f8);
-    border: 3px solid #f39c12;
-    border-radius: 15px;
-    padding: 25px;
-    margin-top: 25px;
-    text-align: center;
-}
-
-.certificate h3 {
-    color: #e67e22;
-    font-size: 1.8rem;
-}
-
-/* Финальная игра */
-.final-game {
-    background: linear-gradient(135deg, #1abc9c, #16a085);
-    color: white;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    margin-top: 40px;
-}
-
-.final-game h2 {
-    color: white;
-    border-bottom: none;
-    margin-top: 0;
 }
 
 /* Подвал */
@@ -528,17 +418,11 @@ footer {
     font-size: 0.9rem;
     padding: 30px 0 20px;
     border-top: 1px solid #d4c5b0;
-    font-weight: 400;
 }
 
 footer a {
     color: #3498db;
     text-decoration: none;
-    font-weight: 500;
-}
-
-footer a:hover {
-    text-decoration: underline;
 }
 
 /* GitHub ссылка */
@@ -557,14 +441,11 @@ footer a:hover {
     text-decoration: none;
     padding: 12px;
     border-radius: 8px;
-    transition: all 0.3s;
-    font-weight: 500;
     background-color: rgba(255,255,255,0.1);
 }
 
 .github-link a:hover {
     background-color: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
 }
 
 .github-link img {
@@ -573,288 +454,54 @@ footer a:hover {
     filter: invert(1);
 }
 
-/* ===== АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ И ПЛАНШЕТОВ ===== */
+/* Списки в карточках */
+.card li, .example li, .task li {
+    color: #2c3e50;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
 
-/* Планшеты (768px - 1024px) */
+/* Адаптивность */
 @media (max-width: 1024px) {
-    .sidebar {
-        width: 220px;
-    }
-    
-    .content {
-        margin-left: 220px;
-        padding: 25px 30px;
-        width: calc(100% - 220px);
-    }
-    
-    .content h1 {
-        font-size: 2.2rem;
-    }
-    
-    .content h2 {
-        font-size: 1.6rem;
-    }
-    
-    .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 20px;
-    }
-    
-    .hero {
-        padding: 40px 30px;
-    }
-    
-    .hero h2 {
-        font-size: 1.6rem;
-    }
+    .sidebar { width: 220px; }
+    .content { margin-left: 220px; width: calc(100% - 220px); padding: 25px 30px; }
+    .content h1 { font-size: 2.2rem; }
+    .content h2 { font-size: 1.6rem; }
 }
 
-/* Телефоны (до 768px) */
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
-    
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        padding: 15px 20px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-    
-    .sidebar h2 {
-        margin-bottom: 15px;
-        font-size: 1.3rem;
-    }
-    
-    .sidebar ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-    }
-    
-    .sidebar ul li {
-        margin-bottom: 0;
-        flex: 1;
-        min-width: 100px;
-    }
-    
-    .sidebar ul li a {
-        text-align: center;
-        padding: 10px 12px;
-        font-size: 0.85rem;
-    }
-    
-    .sidebar ul li a:hover,
-    .sidebar ul li a.active {
-        transform: translateX(0);
-    }
-    
-    .content {
-        margin-left: 0;
-        padding: 20px;
-        width: 100%;
-    }
-    
-    .content h1 {
-        font-size: 1.8rem;
-        text-align: center;
-    }
-    
-    .content h2 {
-        font-size: 1.4rem;
-    }
-    
-    .content h3 {
-        font-size: 1.2rem;
-    }
-    
-    .content p {
-        font-size: 1rem;
-    }
-    
-    .subtitle {
-        text-align: center;
-        font-size: 1rem;
-    }
-    
-    .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .card, .quest-card {
-        padding: 20px;
-    }
-    
-    .task {
-        padding: 15px;
-    }
-    
-    .quest-input, .code-input {
-        flex-direction: column;
-    }
-    
-    .quest-input button, .code-input button {
-        width: 100%;
-    }
-    
-    .nav-buttons {
-        flex-direction: column;
-        gap: 12px;
-    }
-    
-    .nav-button {
-        text-align: center;
-        padding: 10px 20px;
-    }
-    
-    button {
-        padding: 10px 20px;
-        width: 100%;
-    }
-    
-    .game-input {
-        flex-direction: column;
-    }
-    
-    .game-input button {
-        width: 100%;
-        margin-top: 5px;
-    }
-    
-    .result, .game-result {
-        font-size: 0.9rem;
-    }
-    
-    footer {
-        margin-top: 40px;
-        padding: 20px 0;
-        font-size: 0.8rem;
-    }
-    
-    /* Адаптация новых элементов для мобильных */
-    .hero {
-        padding: 30px 20px;
-    }
-    
-    .hero h2 {
-        font-size: 1.3rem;
-    }
-    
-    .hero p {
-        font-size: 0.95rem;
-    }
-    
-    .hero-buttons {
-        gap: 12px;
-    }
-    
-    .hero-btn {
-        padding: 10px 18px;
-        font-size: 0.85rem;
-    }
-    
-    .path-step {
-        padding: 8px 15px;
-        font-size: 0.85rem;
-    }
-    
-    .arrow {
-        font-size: 1rem;
-    }
-    
-    .timeline-item {
-        padding: 14px 18px;
-        font-size: 0.9rem;
-    }
-    
-    /* Упрощаем фон на мобильных */
-    body::after {
-        opacity: 0.04;
-    }
-    
-    body::before {
-        font-size: 16px;
-        opacity: 0.05;
-    }
+    body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; padding: 15px 20px; }
+    .sidebar ul { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .sidebar ul li { margin-bottom: 0; flex: 1; min-width: 100px; }
+    .sidebar ul li a { text-align: center; padding: 10px 12px; font-size: 0.85rem; }
+    .sidebar ul li a:hover { transform: translateX(0); }
+    .content { margin-left: 0; padding: 20px; width: 100%; }
+    .content h1 { font-size: 1.8rem; text-align: center; }
+    .content h2 { font-size: 1.4rem; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .card, .quest-card { padding: 20px; }
+    .hero { padding: 30px 20px; }
+    .nav-buttons { flex-direction: column; }
+    .nav-button { text-align: center; }
+    button { width: 100%; }
+    body::after { opacity: 0.04; }
+    body::before { font-size: 16px; opacity: 0.05; }
+    .timeline-item { padding: 14px 18px; font-size: 0.9rem; }
 }
 
-/* Маленькие телефоны (до 480px) */
 @media (max-width: 480px) {
-    .sidebar {
-        padding: 12px 15px;
-    }
-    
-    .sidebar ul li {
-        min-width: 80px;
-    }
-    
-    .sidebar ul li a {
-        padding: 8px 10px;
-        font-size: 0.75rem;
-    }
-    
-    .content {
-        padding: 15px;
-    }
-    
-    .content h1 {
-        font-size: 1.5rem;
-    }
-    
-    .content h2 {
-        font-size: 1.2rem;
-    }
-    
-    .card, .quest-card {
-        padding: 15px;
-    }
-    
-    .card h3 {
-        font-size: 1.1rem;
-    }
-    
-    .nav-card {
-        padding: 15px;
-    }
-    
-    .nav-card h3 {
-        font-size: 1rem;
-    }
-    
-    input, textarea, select {
-        padding: 10px 12px;
-        font-size: 0.9rem;
-    }
-    
-    button, .nav-button {
-        padding: 10px 16px;
-        font-size: 0.9rem;
-    }
-    
-    .hero {
-        padding: 25px 15px;
-    }
-    
-    .hero h2 {
-        font-size: 1.2rem;
-    }
-    
-    .path-step {
-        padding: 6px 12px;
-        font-size: 0.75rem;
-    }
-    
-    .timeline-item {
-        padding: 12px 15px;
-        font-size: 0.85rem;
-    }
+    .sidebar { padding: 12px 15px; }
+    .sidebar ul li { min-width: 80px; }
+    .content { padding: 15px; }
+    .content h1 { font-size: 1.5rem; }
+    .card, .quest-card { padding: 15px; }
+    .hero { padding: 25px 15px; }
+    .path-step { padding: 6px 12px; font-size: 0.75rem; }
+    .arrow { font-size: 1rem; }
+    .timeline-item { padding: 12px 15px; font-size: 0.85rem; }
 }
 
-/* Код */
 code {
     background-color: #f4f4f4;
     padding: 2px 6px;

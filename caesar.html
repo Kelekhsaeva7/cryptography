@@ -64,7 +64,7 @@
         }
         
         .interactive-card {
-            background: linear-gradient(135deg, #fff, #f8f4ec);
+            background: linear-gradient(135deg, #dccfb9, #f8f4ec);
             border-radius: 15px;
             padding: 25px;
             margin: 25px 0;
@@ -195,14 +195,14 @@
                 <p>Каждая буква в слове сдвигается на определённое количество позиций в алфавите. Например, при сдвиге на 3:</p>
                 <div class="example">
                     <p><strong>А → Г, Б → Д, В → Е, ... Я → В</strong></p>
-                    <p>Слово <strong>"ПРИВЕТ"</strong> → <strong>"ТУЛЗИХ"</strong></p>
+                    <p>Слово <strong>"ПРИВЕТ"</strong> → <strong>"ТУЛЕЗХ"</strong></p>
                 </div>
             </div>
         </section>
 
-        <!-- ИСТОРИЧЕСКИЙ КОНТЕКСТ -->
+        <!-- ИСТОРИЯ -->
         <section>
-            <h2>Исторический контекст</h2>
+            <h2>Историческая справка</h2>
             <div class="fact-card">
                 <h4>Юлий Цезарь и его шифр</h4>
                 <p>Юлий Цезарь использовал шифр со сдвигом 3 для защиты военных сообщений. Это был один из первых известных шифров в истории! Историк Светоний писал, что Цезарь "заменял буквы алфавита так, чтобы ни одно слово не могло быть прочитано".</p>
@@ -256,26 +256,6 @@
 
         
 
-        <!-- ИНТЕРАКТИВНЫЙ ШИФРАТОР -->
-        <section>
-            <h2>Онлайн-шифратор</h2>
-            <div class="card">
-                <p>Введите своё сообщение и выберите сдвиг, чтобы зашифровать или расшифровать его!</p>
-                <div class="task">
-                    <p><strong>Ваше сообщение:</strong></p>
-                    <input type="text" id="textInput" placeholder="Введите слово или фразу..." value="КРИПТОГРАФИЯ">
-                    <p><strong>Сдвиг:</strong></p>
-                    <input type="number" id="shiftInput" min="0" max="32" value="3">
-                    <div style="display: flex; gap: 10px; margin: 15px 0;">
-                        <button onclick="encryptText()">Зашифровать</button>
-                        <button onclick="decryptText()">Расшифровать</button>
-                    </div>
-                    <p><strong>Результат:</strong></p>
-                    <div class="encrypt-preview" id="textResult"></div>
-                </div>
-            </div>
-        </section>
-
         <!-- ПРАКТИЧЕСКИЕ ЗАДАНИЯ -->
         <section id="practice">
             <h2>Практические задания</h2>
@@ -293,7 +273,7 @@
                 </div>
 
                 <div class="task">
-                    <p><strong>Задание 2:</strong> Расшифруйте слово "ЙЕЗКШЭ" (сдвиг 8)</p>
+                    <p><strong>Задание 2:</strong> Расшифруйте слово "АРЬШЦЙТЗ" (сдвиг 8)</p>
                     <div class="game-input">
                         <input type="text" id="task2" placeholder="Введите расшифрованное слово">
                         <button onclick="checkTask2()">Проверить</button>
@@ -302,7 +282,7 @@
                 </div>
 
                 <div class="task">
-                    <p><strong>Задание 3 (со звездочкой ⭐):</strong> Расшифруйте секретное сообщение: <strong>"ФЛУЖЦЙП"</strong>. Подсказка: это слово, связанное с математикой, сдвиг 4.</p>
+                    <p><strong>Задание 3 (со звездочкой ⭐):</strong> Расшифруйте секретное сообщение: <strong>"ШТФРЧПД"</strong>. Подсказка: это слово, связанное с математикой, сдвиг 4.</p>
                     <div class="game-input">
                         <input type="text" id="task3" placeholder="Введите расшифрованное слово">
                         <button onclick="checkTask3()">Проверить</button>
@@ -325,13 +305,33 @@
                 <h3>Частотный анализ</h3>
                 <p>Шифр Цезаря легко взломать с помощью частотного анализа. В русском языке:</p>
                 <ul>
-                    <li>Чаще всего встречаются: <strong>О, Е, А, И, Н</strong></li>
-                    <li>Реже всего: <strong>Ф, Ъ, Ё</strong></li>
+                    <li><p>Чаще всего встречаются: <strong>О, Е, А, И, Н</p></strong></li>
+                    <li><p>Реже всего: <strong>Ф, Ъ, Ё</p></strong></li>
                 </ul>
                 <p>Если в зашифрованном тексте чаще всего буква "Г" → возможно, это зашифрованная "О"</p>
                 <div class="fact-card" style="margin-top: 15px;">
                     <h4>Как взломать шифр Цезаря?</h4>
                     <p>Всего 33 варианта сдвига! Можно просто перебрать все варианты — один из них даст осмысленный текст. Это называется <strong>"метод грубой силы" (brute force)</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+         <!-- ИНТЕРАКТИВНЫЙ ШИФРАТОР -->
+        <section>
+            <h2>Онлайн-шифратор</h2>
+            <div class="card">
+                <p>Введите своё сообщение и выберите сдвиг, чтобы зашифровать или расшифровать его!</p>
+                <div class="task">
+                    <p><strong>Ваше сообщение:</strong></p>
+                    <input type="text" id="textInput" placeholder="Введите слово или фразу..." value="КРИПТОГРАФИЯ">
+                    <p><strong>Сдвиг:</strong></p>
+                    <input type="number" id="shiftInput" min="0" max="32" value="3">
+                    <div style="display: flex; gap: 10px; margin: 15px 0;">
+                        <button onclick="encryptText()">Зашифровать</button>
+                        <button onclick="decryptText()">Расшифровать</button>
+                    </div>
+                    <p><strong>Результат:</strong></p>
+                    <div class="encrypt-preview" id="textResult"></div>
                 </div>
             </div>
         </section>
@@ -445,13 +445,13 @@
         // Задание 1
         function checkTask1() {
             const answer = document.getElementById('task1').value.toUpperCase();
-            const correct = "РЁИРЁФНПФ";
+            const correct = "СЕЧЙСЕЧНПЕ";
             
             if (answer === correct) {
-                document.getElementById('result1').innerHTML = '✅ Верно! "МАТЕМАТИКА" → "РЁИРЁФНПФ"';
+                document.getElementById('result1').innerHTML = '✅ Верно! "МАТЕМАТИКА" → "СЕЧЙСЕЧНПЕ"';
                 document.getElementById('result1').className = 'game-result success';
             } else {
-                document.getElementById('result1').innerHTML = '❌ Попробуйте еще раз. Подсказка: при сдвиге 5 М→Р, А→Ё, Т→И...';
+                document.getElementById('result1').innerHTML = '❌ Попробуйте еще раз. Подсказка: при сдвиге 5 М→С, А→Е, Т→Ч...';
                 document.getElementById('result1').className = 'game-result error';
             }
         }
@@ -462,10 +462,10 @@
             const correct = "ШИФРОВКА";
             
             if (answer === correct) {
-                document.getElementById('result2').innerHTML = '✅ Отлично! "ЙЕЗКШЭ" → "ШИФРОВКА" (Й→Ш, Е→И, З→Ф, К→Р, Ш→О, Э→В, К→Р, А→К, ?)';
+                document.getElementById('result2').innerHTML = '✅ Отлично! "АРЬШЦЙТЗ" → "ШИФРОВКА"';
                 document.getElementById('result2').className = 'game-result success';
             } else {
-                document.getElementById('result2').innerHTML = '❌ Неправильно. Подсказка: Й→Ш, Е→И, З→Ф, К→Р, Ш→О, Э→В...';
+                document.getElementById('result2').innerHTML = '❌ Неправильно. Подсказка: А→Ш, Р→И...';
                 document.getElementById('result2').className = 'game-result error';
             }
         }
@@ -476,7 +476,7 @@
             const correct = "ФОРМУЛА";
             
             if (answer === correct) {
-                document.getElementById('result3').innerHTML = '✅ Поздравляю! "ФЛУЖЦЙП" → "ФОРМУЛА" (сдвиг 4, Ф→Ф, Л→О, У→Р, Ж→М, Ц→У, Й→Л, П→А) ⭐';
+                document.getElementById('result3').innerHTML = '✅ Поздравляю! "ШТФРЧПД" → "ФОРМУЛА" ⭐';
                 document.getElementById('result3').className = 'game-result success';
             } else {
                 document.getElementById('result3').innerHTML = '❌ Попробуйте еще раз. Это математический термин из 7 букв!';

@@ -8,8 +8,12 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
         /* Дополнительные стили для интерактива */
+        input, textarea, select, button {
+            font-family: inherit;
+        }
+        
         .drag-game-full {
-            background-color: rgb(212, 189, 160);
+            background-color: rgb(228, 214, 199);
             padding: 20px;
             border-radius: 8px;
             margin: 20px 0;
@@ -25,7 +29,6 @@
 
         .encrypted-word {
             font-size: 2rem;
-            font-family: 'Courier New', monospace;
             font-weight: bold;
             color: #1c5880;
             letter-spacing: 10px;
@@ -34,6 +37,19 @@
             border-radius: 10px;
             display: inline-block;
             margin: 10px auto;
+        }
+        
+        .fact-card {
+            background: rgb(228, 214, 199);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #f0b54d;
+        }
+        
+        .fact-card h4 {
+            color: #214d6c;
+            margin-bottom: 10px;
         }
 
         /* Алфавит для перетаскивания */
@@ -57,7 +73,6 @@
             border-radius: 8px;
             cursor: grab;
             user-select: none;
-            font-family: 'Roboto', monospace;
             font-size: 1.2rem;
             font-weight: bold;
             text-align: center;
@@ -98,7 +113,6 @@
             padding: 15px 20px;
             min-width: 70px;
             text-align: center;
-            font-family: 'Roboto', monospace;
             font-size: 1.4rem;
             font-weight: bold;
             color: #212123;
@@ -168,6 +182,14 @@
             background-color: #229954;
         }
 
+        .new-word-btn {
+            background-color: #8e44ad;
+        }
+
+        .new-word-btn:hover {
+            background-color: #7d3c98;
+        }
+
         .success-animation {
             animation: successPulse 0.5s ease;
         }
@@ -176,6 +198,45 @@
             0% { transform: scale(1); background-color: rgba(39, 174, 96, 0.3); }
             50% { transform: scale(1.02); background-color: rgba(39, 174, 96, 0.6); }
             100% { transform: scale(1); background-color: rgba(39, 174, 96, 0); }
+        }
+
+        .score-info {
+            background: rgba(33, 77, 108, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .score-info span {
+            font-weight: bold;
+            color: #1c5880;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .encrypted-word {
+                font-size: 1.2rem;
+                letter-spacing: 5px;
+                word-break: break-word;
+            }
+            
+            .drag-letter {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+                min-width: 35px;
+            }
+            
+            .word-slot {
+                padding: 10px 12px;
+                min-width: 45px;
+                font-size: 1rem;
+            }
+            
+            .game-controls button {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -199,6 +260,7 @@
             <p class="subtitle">Древний моноалфавитный шифр - "зеркальное отражение" алфавита</p>
         </header>
 
+        <!-- ТЕОРИЯ -->
         <section id="theory">
             <h2>Как работает шифр Атабаш?</h2>
             <div class="card">
@@ -207,39 +269,59 @@
             </div>
         </section>
 
-        <!-- ГЛАВНАЯ ИНТЕРАКТИВНАЯ ИГРА: Собери слово из алфавита -->
+        <!-- ИСТОРИЧЕСКАЯ СПРАВКА -->
+        <section>
+            <h2>Историческая справка</h2>
+            <div class="fact-card">
+                <h4>Происхождение названия</h4>
+                <p>Название "Атабаш" происходит от первой, последней и средней букв еврейского алфавита. В еврейской традиции этот шифр использовался для толкования священных текстов.</p>
+            </div>
+            <div class="fact-card">
+                <h4>Упоминания в Библии</h4>
+                <p>Некоторые исследователи считают, что шифр Атабаш встречается в Библии. Например, слово "Бабьелон" (Великий Вавилон) иногда связывают с этим шифром.</p>
+            </div>
+            <div class="fact-card">
+                <h4>Интересный факт</h4>
+                <p>Шифр Атабаш использовался в средние века каббалистами для сокрытия тайных знаний. Это один из самых древних известных шифров в истории человечества!</p>
+            </div>
+        </section>
+
+        <!-- ИНТЕРАКТИВНАЯ ИГРА -->
         <section id="drag-game-full">
-            <h2>🎮 Интерактивная игра: Расшифруй слово!</h2>
+            <h2>Интерактивная игра: Расшифруй слово!</h2>
             <div class="drag-game-full">
+                <div class="score-info">
+                    Счёт: <span id="score">0</span> правильных ответов | Слово #<span id="wordNumber">1</span>
+                </div>
+                
                 <div class="game-info">
-                    <p><strong>📜 Задание:</strong> Перед вами зашифрованное слово шифром Атабаш.</p>
+                    <p><strong>Задание:</strong> Перед вами зашифрованное слово шифром Атабаш.</p>
                     <p>Ваша задача: <strong>расшифровать</strong> его, перетаскивая буквы из алфавита в пустые ячейки в правильном порядке!</p>
                     <div class="encrypted-word">
-                        🔐 ЗАШИФРОВАНО: <span id="encryptedWord">ЯБЪПТ</span>
+                        ЗАШИФРОВАНО: <span id="encryptedWord">ЯУЬЪЮОЯ</span>
                     </div>
-                    <p class="note">💡 Подсказка: используйте правило Атабаш (А↔Я, Б↔Ю и т.д.)</p>
+                    <p class="note">Подсказка: используйте правило Атабаш (А↔Я, Б↔Ю и т.д.)</p>
                 </div>
 
-                <!-- Ячейки для составления слова -->
-                <h4>📝 Собери расшифрованное слово:</h4>
+                <h4>Собери расшифрованное слово:</h4>
                 <div class="word-zones" id="wordZones"></div>
 
-                <!-- Весь алфавит для перетаскивания -->
-                <h4>🔤 Алфавит (перетащи нужные буквы):</h4>
+                <h4>Алфавит (перетащи нужные буквы):</h4>
                 <div class="alphabet-grid" id="alphabetGrid"></div>
 
                 <div class="game-controls">
-                    <button onclick="checkWordAnswer()" class="check-btn">✅ Проверить ответ</button>
-                    <button onclick="resetGame()" class="reset-btn">🔄 Сбросить всё</button>
-                    <button onclick="showHint()" class="hint-btn">💡 Подсказка</button>
+                    <button onclick="checkWordAnswer()" class="check-btn">Проверить ответ</button>
+                    <button onclick="resetGame()" class="reset-btn">Сбросить</button>
+                    <button onclick="showHint()" class="hint-btn">Подсказка</button>
+                    <button onclick="loadNewRandomWord()" class="new-word-btn">Новое слово</button>
                 </div>
                 <div id="wordGameResult" style="margin-top: 15px;"></div>
             </div>
         </section>
 
-        <!-- Дополнительное задание 1 -->
+        <!-- ПРАКТИЧЕСКИЕ ЗАДАНИЯ -->
         <section id="practice">
-            <h2>📝 Дополнительные задания</h2>
+            <h2>Практические задания</h2>
             <div class="card">
                 <div class="task">
                     <p><strong>Задание 1:</strong> Зашифруйте слово "АЛГОРИТМ" с помощью шифра Атабаш</p>
@@ -261,6 +343,7 @@
             </div>
         </section>
 
+        <!-- ТАБЛИЦА ШИФРА -->
         <section id="alphabet-table">
             <h2>Таблица шифра Атабаш</h2>
             <div class="card">
@@ -274,7 +357,19 @@
                     <p>Ш ↔ Ж &nbsp;&nbsp; Щ ↔ Ё &nbsp;&nbsp; Ъ ↔ Е &nbsp;&nbsp; Ы ↔ Д &nbsp;&nbsp; Ь ↔ Г</p>
                     <p>Э ↔ В &nbsp;&nbsp; Ю ↔ Б &nbsp;&nbsp; Я ↔ А</p>
                 </div>
-                <p class="note">💡 Обратите внимание: буква П остаётся П (середина алфавита)</p>
+                <p class="note">Обратите внимание: буква П остаётся П (середина алфавита)</p>
+            </div>
+        </section>
+
+        <!-- ПОЛЕЗНЫЕ ССЫЛКИ -->
+        <section>
+            <h2>Полезные ссылки</h2>
+            <div class="card">
+                <ul>
+                    <li><a href="https://ru.wikipedia.org/wiki/%D0%90%D1%82%D0%B1%D0%B0%D1%88" target="_blank">Подробнее о шифре Атабаш на Wikipedia</a></li>
+                    <li><a href="https://crypto.ru/atbash-cipher" target="_blank">Интерактивный урок по шифру Атабаш</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=example" target="_blank">Видео: История древних шифров</a></li>
+                </ul>
             </div>
         </section>
 
@@ -291,45 +386,68 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
     <script>
-        // Конфигурация игры
-        // Зашифрованное слово (в шифре Атабаш)
-        // Например, "ЯБЪПТ" в расшифровке = "АРХИВ" (проверим: А↔Я, Р↔О? нет... давайте правильное слово)
-        // Правильно: "ЯБЪПТ" расшифровывается как "АРХИВ"? 
-        // А↔Я, Р↔? Нет. Давайте возьмём слово "ЯБЛОКО" - его расшифровка? Я↔А, Б↔Ю, Л↔У, О↔Р, К↔Ф, О↔Р = "АЮУРФР"? Не подходит.
-        // Возьмём зашифрованное слово "ЦПСНЬ" → расшифровка "АПЕЛЬСИН"? Слишком длинное.
-        // Возьмём слово из 5 букв: "ШЗРМУ" → "ЖЧОЛФ"? 
-        // Проще: пусть зашифрованное слово будет "ЪЫЬЪТ" → расшифровка "ЕДГЕМ"? 
-        // Давайте для примера возьмём зашифрованное слово "ЦПСНС" - 5 букв, расшифровка "АПЕЛЬ" (Ц↔И? нет)...
-        
-        // Используем слово "ЯБЛОКО" (6 букв) в зашифрованном виде: Я↔А, Б↔Ю, Л↔У, О↔Р, К↔Ф, О↔Р → "АЮУРФР"
-        // Значит зашифрованное слово = "АЮУРФР", а расшифровка = "ЯБЛОКО"
-        
-        const ENCRYPTED_WORD = "АЮУРФР";  // Зашифрованное слово (то, что видит пользователь)
-        const DECRYPTED_WORD = "ЯБЛОКО";  // Правильный ответ (расшифровка)
-        const WORD_LENGTH = DECRYPTED_WORD.length;
-        
-        // Полный алфавит (33 буквы + Ё)
+        // БИБЛИОТЕКА СЛОВ
+        const WORDS_LIBRARY = {
+            math: ["МАТЕМАТИКА", "АЛГЕБРА", "ГЕОМЕТРИЯ", "ТРЕУГОЛЬНИК", "КВАДРАТ", "КРУГ", "ФОРМУЛА", "УРАВНЕНИЕ"],
+            school: ["РУЧКА", "КАРАНДАШ", "ЛИНЕЙКА", "УЧЕБНИК", "ТЕТРАДЬ", "ПЕНАЛ"],
+            extra: ["ШКОЛА", "УРОК", "ЗАДАЧА", "ПРИМЕР", "ОТВЕТ", "НАУКА"]
+        };
+
+        const ALL_WORDS = [...WORDS_LIBRARY.math, ...WORDS_LIBRARY.school, ...WORDS_LIBRARY.extra];
         const FULL_ALPHABET = ['А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я'];
         
-        let currentSlots = Array(WORD_LENGTH).fill('');
-        let usedLetters = []; // Буквы, которые уже использованы в слотах
-        
-        // Функция для получения расшифровки буквы по шифру Атабаш
-        function atbashDecryptLetter(letter) {
+        let currentEncryptedWord = "ЯУЬЪЮОЯ";
+        let currentDecryptedWord = "";
+        let currentSlots = [];
+        let usedLetters = [];
+        let score = 0;
+        let wordNumber = 0;
+        let usedWords = [];
+
+        function atbashTransform(text) {
             const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-            const reversed = 'ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЕДГВБА';
-            const index = alphabet.indexOf(letter);
-            if (index !== -1) return reversed[index];
-            return letter;
+            const reversed = 'ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЁЕДГВБА';
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i].toUpperCase();
+                const index = alphabet.indexOf(char);
+                if (index !== -1) result += reversed[index];
+                else result += char;
+            }
+            return result;
         }
-        
-        // Создание ячеек для слова
+
+        function getRandomWord() {
+            if (usedWords.length >= ALL_WORDS.length) usedWords = [];
+            let availableWords = ALL_WORDS.filter(word => !usedWords.includes(word));
+            if (availableWords.length === 0) availableWords = ALL_WORDS;
+            const randomIndex = Math.floor(Math.random() * availableWords.length);
+            const selectedWord = availableWords[randomIndex];
+            usedWords.push(selectedWord);
+            return selectedWord;
+        }
+
+        function loadNewRandomWord() {
+            currentDecryptedWord = getRandomWord();
+            currentEncryptedWord = atbashTransform(currentDecryptedWord);
+            
+            document.getElementById('encryptedWord').textContent = currentEncryptedWord;
+            currentSlots = Array(currentDecryptedWord.length).fill('');
+            usedLetters = [];
+            
+            createWordSlots();
+            createAlphabetGrid();
+            document.getElementById('wordGameResult').innerHTML = '';
+            
+            wordNumber++;
+            document.getElementById('wordNumber').textContent = wordNumber;
+        }
+
         function createWordSlots() {
             const container = document.getElementById('wordZones');
             container.innerHTML = '';
-            for (let i = 0; i < WORD_LENGTH; i++) {
+            for (let i = 0; i < currentDecryptedWord.length; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'word-slot';
                 if (currentSlots[i]) {
@@ -341,7 +459,6 @@
                 }
                 slot.setAttribute('data-position', i);
                 
-                // Добавляем кнопку удаления
                 const removeBtn = document.createElement('button');
                 removeBtn.textContent = '✕';
                 removeBtn.className = 'remove-btn';
@@ -351,13 +468,11 @@
                 };
                 slot.appendChild(removeBtn);
                 
-                // Добавляем индекс
                 const indexSpan = document.createElement('div');
                 indexSpan.className = 'slot-index';
                 indexSpan.textContent = `${i + 1}`;
                 slot.appendChild(indexSpan);
                 
-                // Обработчики drop
                 slot.addEventListener('dragover', (e) => {
                     e.preventDefault();
                     slot.classList.add('drag-over');
@@ -376,8 +491,7 @@
                 container.appendChild(slot);
             }
         }
-        
-        // Создание алфавита для перетаскивания
+
         function createAlphabetGrid() {
             const container = document.getElementById('alphabetGrid');
             container.innerHTML = '';
@@ -405,8 +519,7 @@
                 container.appendChild(letterDiv);
             });
         }
-        
-        // Разместить букву в слоте
+
         function placeLetterInSlot(position, letter) {
             if (currentSlots[position] === '') {
                 currentSlots[position] = letter;
@@ -414,8 +527,7 @@
                 updateUI();
             }
         }
-        
-        // Удалить букву из слота
+
         function removeLetterFromSlot(position) {
             const letter = currentSlots[position];
             if (letter) {
@@ -425,95 +537,85 @@
                 updateUI();
             }
         }
-        
-        // Обновить UI
+
         function updateUI() {
             createWordSlots();
             createAlphabetGrid();
         }
-        
-        // Проверить ответ
+
         function checkWordAnswer() {
             const userWord = currentSlots.join('');
             const resultDiv = document.getElementById('wordGameResult');
             
-            if (userWord === DECRYPTED_WORD) {
-                resultDiv.innerHTML = `🎉 Поздравляю! Правильно! "${ENCRYPTED_WORD}" → "${DECRYPTED_WORD}" 🎉`;
+            if (userWord === currentDecryptedWord) {
+                score++;
+                document.getElementById('score').textContent = score;
+                resultDiv.innerHTML = `Поздравляю! Правильно! "${currentEncryptedWord}" → "${currentDecryptedWord}" +1 балл!`;
                 resultDiv.className = 'game-result success';
                 resultDiv.classList.add('success-animation');
-                setTimeout(() => {
-                    resultDiv.classList.remove('success-animation');
-                }, 500);
+                setTimeout(() => resultDiv.classList.remove('success-animation'), 500);
             } else {
-                let hint = '';
-                for (let i = 0; i < WORD_LENGTH; i++) {
-                    if (currentSlots[i] === DECRYPTED_WORD[i]) {
-                        hint += `✅ ${i+1}-я буква "${currentSlots[i]}" верна! `;
-                    } else if (currentSlots[i]) {
-                        hint += `❌ ${i+1}-я буква "${currentSlots[i]}" неверна. `;
-                    } else {
-                        hint += `❓ ${i+1}-я ячейка пуста. `;
-                    }
+                let correctCount = 0;
+                for (let i = 0; i < currentDecryptedWord.length; i++) {
+                    if (currentSlots[i] === currentDecryptedWord[i]) correctCount++;
                 }
-                resultDiv.innerHTML = `❌ Неправильно. ${hint}<br>💡 Подсказка: зашифрованное слово "${ENCRYPTED_WORD}". Чтобы расшифровать, примените правило Атабаш к каждой букве.`;
+                resultDiv.innerHTML = `Неправильно. Правильно ${correctCount} из ${currentDecryptedWord.length} букв.`;
                 resultDiv.className = 'game-result error';
             }
         }
-        
-        // Сбросить игру
+
         function resetGame() {
-            currentSlots = Array(WORD_LENGTH).fill('');
+            currentSlots = Array(currentDecryptedWord.length).fill('');
             usedLetters = [];
             updateUI();
             document.getElementById('wordGameResult').innerHTML = '';
         }
-        
-        // Показать подсказку
+
         function showHint() {
             const resultDiv = document.getElementById('wordGameResult');
-            let hint = `🔍 Подсказка: зашифрованное слово "${ENCRYPTED_WORD}".<br>`;
+            let hint = `Подсказка: зашифрованное слово "${currentEncryptedWord}".<br>`;
             hint += `Расшифруйте каждую букву по правилу Атабаш:<br>`;
-            for (let i = 0; i < ENCRYPTED_WORD.length; i++) {
-                const encryptedChar = ENCRYPTED_WORD[i];
-                const decryptedChar = atbashDecryptLetter(encryptedChar);
-                hint += `"${encryptedChar}" → "${decryptedChar}"<br>`;
+            for (let i = 0; i < currentEncryptedWord.length; i++) {
+                hint += `"${currentEncryptedWord[i]}" → "${atbashTransform(currentEncryptedWord[i])}"<br>`;
             }
-            hint += `<br>Соберите слово "${DECRYPTED_WORD}" из букв выше!`;
             resultDiv.innerHTML = hint;
             resultDiv.className = 'game-result';
             resultDiv.style.backgroundColor = '#e8f6f3';
         }
-        
-        // Обычные задания
+
         function checkTask1() {
             const answer = document.getElementById('task1').value.toUpperCase();
             const correct = "ЯУЬРОЦМТ";
-            
+            const resultDiv = document.getElementById('result1');
             if (answer === correct) {
-                document.getElementById('result1').innerHTML = '✅ Верно! "АЛГОРИТМ" → "ЯУЬРОЦМТ"';
-                document.getElementById('result1').className = 'game-result success';
+                resultDiv.innerHTML = 'Верно! "АЛГОРИТМ" → "ЯУЬРОЦМТ"';
+                resultDiv.className = 'game-result success';
             } else {
-                document.getElementById('result1').innerHTML = '❌ Попробуйте еще раз. Используйте таблицу Атабаш!';
-                document.getElementById('result1').className = 'game-result error';
+                resultDiv.innerHTML = 'Попробуйте еще раз. Используйте таблицу Атабаш!';
+                resultDiv.className = 'game-result error';
             }
         }
-        
+
         function checkTask2() {
             const answer = document.getElementById('task2').value.toUpperCase();
             const correct = "КОРЕНЬ";
-            
+            const resultDiv = document.getElementById('result2');
             if (answer === correct) {
-                document.getElementById('result2').innerHTML = '✅ Отлично! "ХСПЪТГ" → "КОРЕНЬ"';
-                document.getElementById('result2').className = 'game-result success';
+                resultDiv.innerHTML = 'Отлично! "ХСПЪТГ" → "КОРЕНЬ"';
+                resultDiv.className = 'game-result success';
             } else {
-                document.getElementById('result2').innerHTML = '❌ Неправильно. Подсказка: Х→К, С→О, П→Р, Ъ→Е, Т→Н, Г→Ь → "КОРЕНЬ"';
-                document.getElementById('result2').className = 'game-result error';
+                resultDiv.innerHTML = 'Неправильно. Подсказка: Х→К, С→О, П→Р, Ъ→Е, Т→Н, Г→Ь → "КОРЕНЬ"';
+                resultDiv.className = 'game-result error';
             }
         }
-        
-        // Запуск при загрузке
+
         document.addEventListener('DOMContentLoaded', () => {
-            resetGame();
+            currentDecryptedWord = atbashTransform(currentEncryptedWord);
+            currentSlots = Array(currentDecryptedWord.length).fill('');
+            usedLetters = [];
+            createWordSlots();
+            createAlphabetGrid();
+            document.getElementById('wordNumber').textContent = 1;
         });
     </script>
 </body>
