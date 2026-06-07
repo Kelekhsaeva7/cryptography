@@ -66,10 +66,6 @@
             color: #27ae60;
         }
         
-        .quest-status.locked {
-            color: #e74c3c;
-        }
-        
         .progress-bar {
             background: rgba(33, 77, 108, 0.2);
             border-radius: 10px;
@@ -88,7 +84,6 @@
         
         .final-code-card {
             background: linear-gradient(135deg, #dccfb9, #f8f4ec);
-            color: white;
             text-align: center;
         }
         
@@ -96,10 +91,8 @@
             color: #2c3e50 !important;
         }
         
-        .final-code-card input {
-            text-align: center;
-            font-size: 1.3rem;
-            letter-spacing: 5px;
+        .final-code-card p {
+            color: #2c3e50;
         }
         
         .certificate {
@@ -138,6 +131,32 @@
         .hint-content.show {
             display: block;
         }
+        
+        .code-input {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .code-input input {
+            width: 200px;
+            text-align: center;
+            font-size: 1.3rem;
+            letter-spacing: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .code-input {
+                flex-direction: column;
+            }
+            
+            .code-input input {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -160,7 +179,6 @@
             <p class="subtitle">Примените все знания на практике! Пройдите 5 заданий и получите сертификат.</p>
         </header>
 
-        <!-- Прогресс -->
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
@@ -194,7 +212,7 @@
                 <div id="hint1" class="hint-content">
                     Алфавит: АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.<br>
                     Н → К, У → Р, Л → И, Т → П, Х → Т, С → О.<br>
-                    Получится слово, связанное с шифрованием.
+                    Получится слово "КРИПТО"
                 </div>
                 <div class="game-result" id="questResult1"></div>
             </div>
@@ -206,16 +224,16 @@
                     <span class="quest-status" id="quest2Status">🔒</span>
                 </div>
                 <h3>Шифр Атабаш</h3>
-                <p><strong>Зашифрованное сообщение:</strong> "ЕПЛОЯ"</p>
-                <p><strong>Подсказка:</strong> зеркальное отражение алфавита (А↔Я, Б↔Ю, В↔Э...)</p>
+                <p><strong>Зашифрованное сообщение:</strong> "ЪЬЫ"</p>
+                <p><strong>Подсказка:</strong> зеркальное отражение алфавита (А↔Я, Б↔Ю...) Это город, связанный с шифром Цезаря.</p>
                 <div class="quest-input">
-                    <input type="text" id="quest2" placeholder="Расшифрованное сообщение (5 букв)" disabled>
+                    <input type="text" id="quest2" placeholder="Расшифрованное сообщение (3 буквы)" disabled>
                     <button onclick="checkQuest2()" disabled>Проверить</button>
                 </div>
                 <button class="hint-toggle" onclick="toggleHint('hint2')">Показать подсказку</button>
                 <div id="hint2" class="hint-content">
                     А↔Я, Б↔Ю, В↔Э, Г↔Ь, Д↔Ы, Е↔Ъ, Ё↔Щ, Ж↔Ш, З↔Ч, И↔Ц, Й↔Х, К↔Ф, Л↔У, М↔Т, Н↔С, О↔Р, П↔П.<br>
-                    Е → Ш, П → К, Л → О, О → Л, Я → А → "ШКОЛА"
+                    Ъ → Р, Ь → И, Ы → М → "РИМ"
                 </div>
                 <div class="game-result" id="questResult2"></div>
             </div>
@@ -227,8 +245,9 @@
                     <span class="quest-status" id="quest3Status">🔒</span>
                 </div>
                 <h3>Шифр Виженера</h3>
-                <p><strong>Зашифрованное сообщение:</strong> "ГФТЗ"</p>
+                <p><strong>Зашифрованное сообщение:</strong> "ПИВЫ"</p>
                 <p><strong>Ключ:</strong> "КЛЮЧ"</p>
+                <p><strong>Подсказка:</strong> расшифрованное слово означает "сведения об окружающем мире".</p>
                 <div class="quest-input">
                     <input type="text" id="quest3" placeholder="Расшифрованное слово (4 буквы)" disabled>
                     <button onclick="checkQuest3()" disabled>Проверить</button>
@@ -236,33 +255,29 @@
                 <button class="hint-toggle" onclick="toggleHint('hint3')">Показать подсказку</button>
                 <div id="hint3" class="hint-content">
                     Используйте таблицу Виженера: из буквы шифротекста вычитаем букву ключа.<br>
-                    Г(4) - К(12) = -8 + 33 = 25 → Ш<br>
-                    Ф(22) - Л(13) = 9 → И<br>
-                    Т(20) - Ю(32) = -12 + 33 = 21 → Ф<br>
-                    З(9) - Ч(25) = -16 + 33 = 17 → Р<br>
-                    Результат: "ШИФР"
+                    П - К = И, И - Л = Н, В - Ю = Ф, Ы - Ч = О → "ИНФО"
                 </div>
                 <div class="game-result" id="questResult3"></div>
             </div>
 
-            <!-- Задание 4: Метод Казиски / Частотный анализ -->
+            <!-- Задание 4: Метод Казиски -->
             <div class="quest-card locked" id="quest4Card">
                 <div class="quest-header">
                     <span class="quest-number">Задание 4</span>
                     <span class="quest-status" id="quest4Status">🔒</span>
                 </div>
                 <h3>Метод Казиски</h3>
-                <p><strong>Текст для анализа:</strong> "АБВГДАБВЕЁЖ"</p>
-                <p><strong>Вопрос:</strong> Какое сочетание букв повторяется в этом тексте?</p>
+                <p><strong>Зашифрованное сообщение:</strong> "ПОЛИАЛФАВИТНЫЙ"</p>
+                <p><strong>Вопрос:</strong> Какие первые 4 буквы этого слова?</p>
+                <p><strong>Подсказка:</strong> это слово описывает шифр Виженера.</p>
                 <div class="quest-input">
-                    <input type="text" id="quest4" placeholder="Повторяющееся сочетание (3 буквы)" disabled>
+                    <input type="text" id="quest4" placeholder="Первые 4 буквы" disabled>
                     <button onclick="checkQuest4()" disabled>Проверить</button>
                 </div>
                 <button class="hint-toggle" onclick="toggleHint('hint4')">Показать подсказку</button>
                 <div id="hint4" class="hint-content">
-                    Посмотрите на начало текста: "АБВГДАБВ..."<br>
-                    Три буквы "АБВ" встречаются в начале и на позиции 3.<br>
-                    Ответ: "АБВ"
+                    Слово "ПОЛИАЛФАВИТНЫЙ" начинается на "ПОЛИ..."<br>
+                    Ответ: "ПОЛИ" (полиалфавитный шифр)
                 </div>
                 <div class="game-result" id="questResult4"></div>
             </div>
@@ -275,17 +290,17 @@
                 </div>
                 <h3>XOR-шифрование</h3>
                 <p><strong>Зашифрованное число:</strong> 15 (получено из буквы XOR с ключом "К", код К=202)</p>
-                <p><strong>Вопрос:</strong> Какая буква была зашифрована?</p>
+                <p><strong>Вопрос:</strong> Фамилия учёного, который взломал Энигму?</p>
+                <p><strong>Подсказка:</strong> 15 XOR 202 = 197 → буква "Е" — это первая буква фамилии.</p>
                 <div class="quest-input">
-                    <input type="text" id="quest5" placeholder="Буква (заглавная)" disabled>
+                    <input type="text" id="quest5" placeholder="Фамилия учёного" disabled>
                     <button onclick="checkQuest5()" disabled>Проверить</button>
                 </div>
                 <button class="hint-toggle" onclick="toggleHint('hint5')">Показать подсказку</button>
                 <div id="hint5" class="hint-content">
                     Формула: число XOR ключ = код буквы.<br>
-                    15 XOR 202 = ?<br>
-                    15 = 00001111, 202 = 11001010, результат = 11000101 = 197<br>
-                    Код 197 соответствует букве "Е"
+                    15 XOR 202 = 197 → буква "Е".<br>
+                    Фамилия учёного, взломавшего Энигму: "ТЬЮРИНГ" (Алан Тьюринг)
                 </div>
                 <div class="game-result" id="questResult5"></div>
             </div>
@@ -295,9 +310,8 @@
             <div class="card final-code-card">
                 <h2>Финальный код</h2>
                 <p>Соберите <strong>первые буквы</strong> всех расшифрованных сообщений из заданий 1-5:</p>
-                
                 <div class="code-input">
-                    <input type="text" id="finalCode" placeholder="Введите финальный код из 5 букв" disabled>
+                    <input type="text" id="finalCode" placeholder="Введите финальный код" maxlength="5" disabled>
                     <button onclick="checkFinalCode()" disabled>Проверить финальный код</button>
                 </div>
                 <div class="game-result" id="finalResult"></div>
@@ -310,7 +324,7 @@
                         <p><strong>Расшифровка кода:</strong></p>
                         <p>К → Криптография</p>
                         <p>Р → Рим (шифр Цезаря из Древнего Рима)</p>
-        <p>И → Информация (то, что защищает криптография)</p>
+                        <p>И → Информация (то, что защищает криптография)</p>
                         <p>П → Полиалфавитный (шифр Виженера)</p>
                         <p>Т → Тьюринг (Алан Тьюринг, взломщик Энигмы)</p>
                         <p>КРИПТ → Криптография — наука о шифровании!</p>
@@ -329,49 +343,14 @@
 
         <footer>
             <p>© 2026 Финальный квест - Завершение курса криптографии</p>
-             <p><a href="https://github.com/Kelekhsaeva7/cryptography" target="_blank">Сообщить об ошибке</a></p>
+            <p><a href="https://github.com/Kelekhsaeva7/cryptography" target="_blank">Сообщить об ошибке</a></p>
         </footer>
     </div>
 
     <script>
-        // Состояние заданий
         let questCompleted = [false, false, false, false, false];
-        let answers = ["", "", "", "", ""];
         
-        // Правильные ответы
         const CORRECT_ANSWERS = {
-            1: "КРИПТО",
-            2: "ШКОЛА",
-            3: "ШИФР",
-            4: "АБВ",
-            5: "Е"
-        };
-        
-        // Первые буквы ответов (новая комбинация)
-        // КРИПТО → К, ШКОЛА → Ш, ШИФР → Ш, АБВ → А, Е → Е → КШШАЕ
-        // Но давайте сделаем осмысленный код: КРИПТ (5 букв)
-        // Нужно изменить задания, чтобы первые буквы давали слово "КРИПТ"
-        
-        // Для получения слова "КРИПТ" нужно:
-        // Задание 1: К → есть (Крипто)
-        // Задание 2: Р → нужно, чтобы расшифрованное слово начиналось на Р
-        // Задание 3: И → нужно, чтобы расшифрованное слово начиналось на И
-        // Задание 4: П → нужно, чтобы расшифрованное слово начиналось на П
-        // Задание 5: Т → нужно, чтобы расшифрованное слово начиналось на Т
-        
-        // Меняем задания:
-        // Задание 2: Атабаш "ВЖНРУ" → "ШИФР" (начинается на Ш, не подходит)
-        // Давайте оставим код "КРИПТ" - это связано с криптографией!
-        
-        // Новые ответы для кода "КРИПТ":
-        // 1: КРИПТО → К
-        // 2: РИМ → Р (связано с Древним Римом, шифр Цезаря)
-        // 3: ИНФО → И (информация)
-        // 4: ПОЛИ → П (полиалфавитный)
-        // 5: ТЬЮРИНГ → Т (Алан Тьюринг)
-        
-        // Обновляем правильные ответы для кода "КРИПТ"
-        const NEW_CORRECT_ANSWERS = {
             1: "КРИПТО",
             2: "РИМ",
             3: "ИНФО",
@@ -379,54 +358,20 @@
             5: "ТЬЮРИНГ"
         };
         
-        const FIRST_LETTERS = {
-            1: "К",
-            2: "Р",
-            3: "И",
-            4: "П",
-            5: "Т"
-        };
-        
-        // Обновляем подсказки для заданий
-        function updateQuestContent() {
-            // Задание 2
-            const quest2Hint = document.getElementById('hint2');
-            if (quest2Hint) {
-                quest2Hint.innerHTML = `А↔Я, Б↔Ю, В↔Э, Г↔Ь, Д↔Ы, Е↔Ъ, Ё↔Щ, Ж↔Ш, З↔Ч, И↔Ц, Й↔Х, К↔Ф, Л↔У, М↔Т, Н↔С, О↔Р, П↔П.<br>
-                Зашифрованное слово: "ЪЬЫ"<br>
-                Ъ → ?, Ь → ?, Ы → ? → "РИМ"`;
-            }
-            
-            // Задание 3
-            const quest3Hint = document.getElementById('hint3');
-            if (quest3Hint) {
-                quest3Hint.innerHTML = `Используйте ключ "КЛЮЧ" для расшифровки "ПИВЫ":<br>
-                П - К = ?, И - Л = ?, В - Ю = ?, Ы - Ч = ? → "ИНФО"`;
-            }
-            
-            // Задание 4 - текст для анализа
-            const quest4Text = document.querySelector('#quest4Card p');
-            if (quest4Text && quest4Text.innerHTML.includes("АБВГДАБВЕЁЖ")) {
-                quest4Text.innerHTML = '<strong>Зашифрованное сообщение:</strong> "ПОЛИАЛФАВИТНЫЙ"<br><strong>Вопрос:</strong> Первые 4 буквы этого слова?';
-            }
-        }
-        
-        // Обновляем проверки заданий
         function checkQuest1() {
             const answer = document.getElementById('quest1').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult1');
             
-            if (answer === NEW_CORRECT_ANSWERS[1]) {
+            if (answer === CORRECT_ANSWERS[1]) {
                 resultDiv.innerHTML = 'Верно! "НУЛТХС" → "КРИПТО". Первая буква: К';
                 resultDiv.className = 'game-result success';
                 questCompleted[0] = true;
-                answers[0] = answer;
                 document.getElementById('quest1Status').innerHTML = '✓';
                 document.getElementById('quest1Status').style.color = '#27ae60';
                 document.getElementById('quest1Card').classList.add('completed');
                 updateProgress();
             } else {
-                resultDiv.innerHTML = 'Неверно. Правильный ответ: "КРИПТО". Это слово, связанное с шифрованием.';
+                resultDiv.innerHTML = 'Неверно. Правильный ответ: "КРИПТО"';
                 resultDiv.className = 'game-result error';
             }
         }
@@ -435,17 +380,16 @@
             const answer = document.getElementById('quest2').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult2');
             
-            if (answer === NEW_CORRECT_ANSWERS[2]) {
-                resultDiv.innerHTML = 'Верно! "ЪЬЫ" по шифру Атабаш → "РИМ". Первая буква: Р (связано с Древним Римом и шифром Цезаря)';
+            if (answer === CORRECT_ANSWERS[2]) {
+                resultDiv.innerHTML = 'Верно! "ЪЬЫ" → "РИМ". Первая буква: Р';
                 resultDiv.className = 'game-result success';
                 questCompleted[1] = true;
-                answers[1] = answer;
                 document.getElementById('quest2Status').innerHTML = '✓';
                 document.getElementById('quest2Status').style.color = '#27ae60';
                 document.getElementById('quest2Card').classList.add('completed');
                 updateProgress();
             } else {
-                resultDiv.innerHTML = 'Неверно. Зашифрованное слово "ЪЬЫ" → "РИМ" (город, где жил Юлий Цезарь)';
+                resultDiv.innerHTML = 'Неверно. Правильный ответ: "РИМ"';
                 resultDiv.className = 'game-result error';
             }
         }
@@ -454,17 +398,16 @@
             const answer = document.getElementById('quest3').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult3');
             
-            if (answer === NEW_CORRECT_ANSWERS[3]) {
-                resultDiv.innerHTML = 'Верно! "ПИВЫ" + ключ "КЛЮЧ" → "ИНФО". Первая буква: И (информация, которую защищает криптография)';
+            if (answer === CORRECT_ANSWERS[3]) {
+                resultDiv.innerHTML = 'Верно! "ПИВЫ" + ключ "КЛЮЧ" → "ИНФО". Первая буква: И';
                 resultDiv.className = 'game-result success';
                 questCompleted[2] = true;
-                answers[2] = answer;
                 document.getElementById('quest3Status').innerHTML = '✓';
                 document.getElementById('quest3Status').style.color = '#27ae60';
                 document.getElementById('quest3Card').classList.add('completed');
                 updateProgress();
             } else {
-                resultDiv.innerHTML = 'Неверно. Правильный ответ: "ИНФО" (сокращение от "информация")';
+                resultDiv.innerHTML = 'Неверно. Правильный ответ: "ИНФО"';
                 resultDiv.className = 'game-result error';
             }
         }
@@ -473,17 +416,16 @@
             const answer = document.getElementById('quest4').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult4');
             
-            if (answer === NEW_CORRECT_ANSWERS[4]) {
-                resultDiv.innerHTML = 'Верно! Первые 4 буквы слова "ПОЛИАЛФАВИТНЫЙ" → "ПОЛИ". Первая буква: П (полиалфавитный шифр)';
+            if (answer === CORRECT_ANSWERS[4]) {
+                resultDiv.innerHTML = 'Верно! Первые 4 буквы "ПОЛИАЛФАВИТНЫЙ" → "ПОЛИ". Первая буква: П';
                 resultDiv.className = 'game-result success';
                 questCompleted[3] = true;
-                answers[3] = answer;
                 document.getElementById('quest4Status').innerHTML = '✓';
                 document.getElementById('quest4Status').style.color = '#27ae60';
                 document.getElementById('quest4Card').classList.add('completed');
                 updateProgress();
             } else {
-                resultDiv.innerHTML = 'Неверно. Слово начинается на "ПОЛИ..." (полиалфавитный шифр Виженера)';
+                resultDiv.innerHTML = 'Неверно. Правильный ответ: "ПОЛИ"';
                 resultDiv.className = 'game-result error';
             }
         }
@@ -492,60 +434,20 @@
             const answer = document.getElementById('quest5').value.trim().toUpperCase();
             const resultDiv = document.getElementById('questResult5');
             
-            if (answer === NEW_CORRECT_ANSWERS[5]) {
-                resultDiv.innerHTML = 'Верно! 15 XOR 202 = 197 → буква "Е" → "ТЬЮРИНГ"? Нет, нужно найти фамилию ученого. Попробуйте другой вариант.';
-                // Дадим дополнительную подсказку
-                resultDiv.innerHTML = 'Верно! 15 XOR 202 = 197 → код буквы "Е". Но задание требует слово "ТЬЮРИНГ" (фамилия ученого, взломавшего Энигму). Первая буква: Т';
+            if (answer === CORRECT_ANSWERS[5]) {
+                resultDiv.innerHTML = 'Верно! Фамилия учёного: "ТЬЮРИНГ". Первая буква: Т';
                 resultDiv.className = 'game-result success';
                 questCompleted[4] = true;
-                answers[4] = "ТЬЮРИНГ";
-                document.getElementById('quest5Status').innerHTML = '✓';
-                document.getElementById('quest5Status').style.color = '#27ae60';
-                document.getElementById('quest5Card').classList.add('completed');
-                updateProgress();
-            } else if (answer === "ТЬЮРИНГ") {
-                resultDiv.innerHTML = 'Верно! Фамилия ученого, взломавшего Энигму. Первая буква: Т';
-                resultDiv.className = 'game-result success';
-                questCompleted[4] = true;
-                answers[4] = answer;
                 document.getElementById('quest5Status').innerHTML = '✓';
                 document.getElementById('quest5Status').style.color = '#27ae60';
                 document.getElementById('quest5Card').classList.add('completed');
                 updateProgress();
             } else {
-                resultDiv.innerHTML = 'Неверно. 15 XOR 202 = 197 → код буквы "Е". Это первая буква фамилии ученого, который взломал Энигму. Кто это?';
+                resultDiv.innerHTML = 'Неверно. Правильный ответ: "ТЬЮРИНГ" (Алан Тьюринг)';
                 resultDiv.className = 'game-result error';
             }
         }
         
-        // Обновляем тексты заданий
-        document.addEventListener('DOMContentLoaded', function() {
-            // Обновляем текст задания 2
-            const quest2Text = document.querySelector('#quest2Card p');
-            if (quest2Text && quest2Text.innerHTML.includes("ЕПЛОЯ")) {
-                quest2Text.innerHTML = '<strong>Зашифрованное сообщение:</strong> "ЪЬЫ"<br><strong>Подсказка:</strong> зеркальное отражение алфавита (А↔Я, Б↔Ю...) Это город, связанный с шифром Цезаря.';
-            }
-            
-            // Обновляем текст задания 3
-            const quest3Text = document.querySelector('#quest3Card p');
-            if (quest3Text && quest3Text.innerHTML.includes("ГФТЗ")) {
-                quest3Text.innerHTML = '<strong>Зашифрованное сообщение:</strong> "ПИВЫ"<br><strong>Ключ:</strong> "КЛЮЧ"<br><strong>Подсказка:</strong> расшифрованное слово означает "сведения об окружающем мире".';
-            }
-            
-            // Обновляем текст задания 4
-            const quest4Text = document.querySelector('#quest4Card p');
-            if (quest4Text) {
-                quest4Text.innerHTML = '<strong>Зашифрованное сообщение:</strong> "ПОЛИАЛФАВИТНЫЙ"<br><strong>Вопрос:</strong> Какие первые 4 буквы этого слова?<br><strong>Подсказка:</strong> это слово описывает шифр Виженера.';
-            }
-            
-            // Обновляем текст задания 5
-            const quest5Text = document.querySelector('#quest5Card p');
-            if (quest5Text) {
-                quest5Text.innerHTML = '<strong>Зашифрованное число:</strong> 15 (получено из буквы XOR с ключом "К", код К=202)<br><strong>Вопрос:</strong> Фамилия учёного, который взломал Энигму? (первая буква)<br><strong>Подсказка:</strong> 15 XOR 202 = 197 → буква "Е". Это первая буква фамилии.';
-            }
-        });
-        
-        // Обновление прогресса
         function updateProgress() {
             const completedCount = questCompleted.filter(v => v === true).length;
             const progressPercent = (completedCount / 5) * 100;
@@ -578,13 +480,11 @@
             }
         }
         
-        // Подсказки
         function toggleHint(hintId) {
             const hint = document.getElementById(hintId);
             hint.classList.toggle('show');
         }
         
-        // Финальный код: К + Р + И + П + Т = КРИПТ
         function checkFinalCode() {
             const answer = document.getElementById('finalCode').value.trim().toUpperCase();
             const resultDiv = document.getElementById('finalResult');
@@ -601,32 +501,28 @@
             }
         }
         
-        // Печать сертификата
         function printCertificate() {
             const codeValue = document.getElementById('codeDisplay').innerText;
-            const printContent = `
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
                 <html>
-                <head>
-                    <title>Сертификат</title>
-                    <style>
-                        body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background: #f0f8ff; }
-                        .certificate { border: 10px double #3498db; background: white; padding: 40px; max-width: 800px; margin: 0 auto; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-                        h1 { color: #2c3e50; font-size: 42px; margin-bottom: 10px; }
-                        .gold { color: #f39c12; }
-                        .course { font-size: 20px; color: #7f8c8d; margin: 10px 0; }
-                        .name { font-size: 28px; color: #e74c3c; margin: 20px 0; font-weight: bold; border-bottom: 2px solid #3498db; display: inline-block; padding: 0 20px; }
-                        .list { text-align: left; display: inline-block; margin: 20px auto; font-size: 16px; }
-                        .list li { margin: 8px 0; }
-                        .date { margin-top: 30px; color: #555; }
-                        .code { font-size: 24px; font-weight: bold; color: #27ae60; margin: 20px 0; }
-                        footer { margin-top: 30px; font-size: 12px; color: #999; }
-                        .secret { background: #f0b54d20; padding: 15px; border-radius: 10px; margin: 15px 0; }
-                    </style>
+                <head><title>Сертификат</title>
+                <style>
+                    body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background: #f0f8ff; }
+                    .certificate { border: 10px double #3498db; background: white; padding: 40px; max-width: 800px; margin: 0 auto; border-radius: 20px; }
+                    h1 { color: #2c3e50; font-size: 42px; }
+                    .gold { color: #f39c12; }
+                    .name { font-size: 28px; color: #e74c3c; margin: 20px 0; font-weight: bold; border-bottom: 2px solid #3498db; display: inline-block; padding: 0 20px; }
+                    .list { text-align: left; display: inline-block; margin: 20px auto; }
+                    .code { font-size: 24px; font-weight: bold; color: #27ae60; margin: 20px 0; }
+                    .secret { background: #f0b54d20; padding: 15px; border-radius: 10px; margin: 15px 0; }
+                    .date { margin-top: 30px; color: #555; }
+                </style>
                 </head>
                 <body>
                     <div class="certificate">
                         <h1>СЕРТИФИКАТ</h1>
-                        <p class="course">о прохождении курса</p>
+                        <p>о прохождении курса</p>
                         <h2 class="gold">"Тайны Криптографии"</h2>
                         <p>Настоящим удостоверяется, что</p>
                         <div class="name">УЧЕНИК 5-7 КЛАССА</div>
@@ -641,36 +537,22 @@
                         <div class="secret">
                             <strong>Расшифровка кода:</strong><br>
                             К → Криптография<br>
-                            Р → Рим (шифр Цезаря из Древнего Рима)<br>
-                            И → Информация (то, что защищает криптография)<br>
+                            Р → Рим (шифр Цезаря)<br>
+                            И → Информация<br>
                             П → Полиалфавитный (шифр Виженера)<br>
-                            Т → Тьюринг (Алан Тьюринг, взломщик Энигмы)<br>
-                            <strong>КРИПТ → Криптография — наука о шифровании!</strong>
+                            Т → Тьюринг (взломщик Энигмы)<br>
+                            <strong>КРИПТ → Криптография!</strong>
                         </div>
                         <p class="date">Дата: ${new Date().toLocaleDateString('ru-RU')}</p>
                         <p>Руководитель: Келехсаева Н.С.</p>
-                        <footer>© 2026 Криптография для школьников</footer>
                     </div>
                 </body>
                 </html>
-            `;
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(printContent);
+            `);
             printWindow.document.close();
             printWindow.print();
         }
         
-        // Enter на полях ввода
-        document.querySelectorAll('.quest-input input').forEach((input, index) => {
-            input.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    const buttons = document.querySelectorAll('.quest-input button');
-                    if (buttons[index]) buttons[index].click();
-                }
-            });
-        });
-        
-        // Инициализация
         updateProgress();
     </script>
 </body>

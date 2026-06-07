@@ -510,3 +510,7 @@ code {
     font-size: 0.9em;
     color: #c7254e;
 }
+/* Заголовок по центру */
+.center-title {
+    text-align: center;
+}
