@@ -18,6 +18,20 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             border: 3px solid #214d6c;
         }
+
+        .wheel-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.wheel-inner span {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
         
         .wheel-inner {
             position: absolute;
@@ -223,12 +237,11 @@
             <div class="interactive-card">
                 <p>Вращайте регулятор, чтобы увидеть, как меняется шифрование!</p>
                 <div class="cipher-wheel">
-                    <div class="wheel-arrow"></div>
-                    <div class="wheel-inner" id="wheelInner">
-                        Сдвиг<br>
-                        <span id="currentShift">3</span>
-                    </div>
-                </div>
+    <div class="wheel-arrow"></div>
+    <div class="wheel-inner" id="wheelInner">
+    Сдвиг <span id="currentShift">3</span>
+</div>
+</div>
                 <input type="range" id="shiftSlider" class="shift-slider" min="0" max="32" value="3">
                 <div class="shift-value">
                     Сдвиг: <span id="shiftValue">3</span>

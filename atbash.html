@@ -89,12 +89,13 @@
             opacity: 0.5;
         }
 
+        /* Убираем стиль used - буквы всегда активны */
         .drag-letter.used {
-            opacity: 0.3;
-            background-color: #7f8c8d;
-            cursor: not-allowed;
-            pointer-events: none;
-            text-decoration: line-through;
+            opacity: 1;
+            background-color: #214d6c;
+            cursor: grab;
+            pointer-events: auto;
+            text-decoration: none;
         }
 
         /* Ячейки для составления слова */
@@ -400,7 +401,7 @@
         let currentEncryptedWord = "ЯУЬЪЮОЯ";
         let currentDecryptedWord = "";
         let currentSlots = [];
-        let usedLetters = [];
+        let usedLetters = []; // больше не используется для блокировки
         let score = 0;
         let wordNumber = 0;
         let usedWords = [];
@@ -484,7 +485,7 @@
                     e.preventDefault();
                     slot.classList.remove('drag-over');
                     const letter = e.dataTransfer.getData('text/plain');
-                    if (letter && !currentSlots.includes(letter) && !usedLetters.includes(letter)) {
+                    if (letter) {
                         placeLetterInSlot(i, letter);
                     }
                 });
@@ -498,18 +499,12 @@
             FULL_ALPHABET.forEach(letter => {
                 const letterDiv = document.createElement('div');
                 letterDiv.className = 'drag-letter';
-                if (usedLetters.includes(letter) || currentSlots.includes(letter)) {
-                    letterDiv.classList.add('used');
-                }
+                // Убираем блокировку used - все буквы всегда активны
                 letterDiv.textContent = letter;
                 letterDiv.setAttribute('data-letter', letter);
                 letterDiv.setAttribute('draggable', 'true');
                 
                 letterDiv.addEventListener('dragstart', (e) => {
-                    if (letterDiv.classList.contains('used')) {
-                        e.preventDefault();
-                        return false;
-                    }
                     e.dataTransfer.setData('text/plain', letter);
                     letterDiv.classList.add('dragging');
                 });
@@ -521,21 +516,14 @@
         }
 
         function placeLetterInSlot(position, letter) {
-            if (currentSlots[position] === '') {
-                currentSlots[position] = letter;
-                usedLetters.push(letter);
-                updateUI();
-            }
+            // Перезаписываем букву в слоте (можно менять сколько угодно раз)
+            currentSlots[position] = letter;
+            updateUI();
         }
 
         function removeLetterFromSlot(position) {
-            const letter = currentSlots[position];
-            if (letter) {
-                currentSlots[position] = '';
-                const index = usedLetters.indexOf(letter);
-                if (index !== -1) usedLetters.splice(index, 1);
-                updateUI();
-            }
+            currentSlots[position] = '';
+            updateUI();
         }
 
         function updateUI() {
