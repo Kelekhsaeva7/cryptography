@@ -244,7 +244,7 @@
                 </div>
 
                 <div class="task">
-                    <p><strong>Задание 2:</strong> Расшифруйте слово <strong>"ФАЦЕДАЪИО"</strong> с ключом <strong>"ЗАДАЧА"</strong></p>
+                    <p><strong>Задание 2:</strong> Расшифруйте слово <strong>"ФАЦЕДАЪИОА"</strong> с ключом <strong>"ЗАДАЧА"</strong></p>
                     <div class="game-input">
                         <input type="text" id="task2" placeholder="Введите расшифрованное слово">
                         <button onclick="checkTask2()">Проверить</button>
@@ -253,13 +253,27 @@
                 </div>
 
                 <div class="task">
-                    <p><strong>Задание 3 (со звездочкой):</strong> Расшифруйте секретное сообщение <strong>"ЫПИЗЕФШЖ"</strong> с ключом <strong>"МАТЕМАТИКА"</strong></p>
+                    <p><strong>Задание 3 (со звездочкой ⭐):</strong> Расшифруйте секретное сообщение <strong>"ЧРЫФЯОХЩКФХЯ"</strong> с ключом <strong>"МАТЕМАТИКА"</strong></p>
                     <div class="game-input">
                         <input type="text" id="task3" placeholder="Введите расшифрованное слово">
                         <button onclick="checkTask3()">Проверить</button>
                     </div>
                     <div class="game-result" id="result3"></div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ТАБЛИЦА ВИЖЕНЕРА -->
+        <section id="table">
+            <h2>Таблица Виженера</h2>
+            <div class="card">
+                <p>Таблица помогает быстро находить зашифрованные буквы: находите букву текста в строке, букву ключа в столбце — на пересечении будет зашифрованная буква.</p>
+                <div class="vigenere-table-container">
+                    <table class="vigenere-table" id="vigenereTable">
+                        <!-- Таблица будет сгенерирована JavaScript -->
+                    </table>
+                </div>
+                <p class="note">Кликните на любую ячейку, чтобы увидеть формулу шифрования!</p>
             </div>
         </section>
 
@@ -287,20 +301,6 @@
                     <p><strong>Результат:</strong></p>
                     <div class="demo-text" id="textResult"></div>
                 </div>
-            </div>
-        </section>
-
-        <!-- ТАБЛИЦА ВИЖЕНЕРА -->
-        <section id="table">
-            <h2>Таблица Виженера</h2>
-            <div class="card">
-                <p>Таблица помогает быстро находить зашифрованные буквы: находите букву текста в строке, букву ключа в столбце — на пересечении будет зашифрованная буква.</p>
-                <div class="vigenere-table-container">
-                    <table class="vigenere-table" id="vigenereTable">
-                        <!-- Таблица будет сгенерирована JavaScript -->
-                    </table>
-                </div>
-                <p class="note">Кликните на любую ячейку, чтобы увидеть формулу шифрования!</p>
             </div>
         </section>
 
@@ -450,7 +450,7 @@
             const correct = "МАТЕМАТИКА";
             
             if (answer === correct) {
-                document.getElementById('result2').innerHTML = 'Отлично! "ФАЦЕДАЪИО" → "МАТЕМАТИКА"';
+                document.getElementById('result2').innerHTML = 'Отлично! "ФАЦЕДАЪИОА" → "МАТЕМАТИКА"';
                 document.getElementById('result2').className = 'game-result success';
             } else {
                 document.getElementById('result2').innerHTML = 'Неправильно. Подсказка: Ф(21)-З(8)=М(13), А(0)-А(0)=А(0)...';
@@ -463,10 +463,10 @@
             const correct = "КРИПТОГРАФИЯ";
             
             if (answer === correct) {
-                document.getElementById('result3').innerHTML = 'Поздравляю! "ЫПИЗЕФШЖ" → "КРИПТОГРАФИЯ"';
+                document.getElementById('result3').innerHTML = 'Поздравляю! "ЧРЫФЯОХЩКФХЯ" → "КРИПТОГРАФИЯ"';
                 document.getElementById('result3').className = 'game-result success';
             } else {
-                document.getElementById('result3').innerHTML = 'Попробуйте еще раз. Это слово из 13 букв, связанное с криптографией!';
+                document.getElementById('result3').innerHTML = 'Попробуйте еще раз!';
                 document.getElementById('result3').className = 'game-result error';
             }
         }

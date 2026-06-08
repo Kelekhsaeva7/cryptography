@@ -320,7 +320,7 @@
             </div>
         </section>
 
-        <!-- ПРАКТИЧЕСКИЕ ЗАДАНИЯ -->
+                <!-- ПРАКТИЧЕСКИЕ ЗАДАНИЯ -->
         <section id="practice">
             <h2>Практические задания</h2>
             <div class="card">
@@ -334,12 +334,21 @@
                 </div>
 
                 <div class="task">
-                    <p><strong>Задание 2:</strong> Расшифруйте слово "ХСПЪТГ" (шифр Атабаш)</p>
+                    <p><strong>Задание 2:</strong> Расшифруйте слово "ФРОЪСГ"</p>
                     <div class="game-input">
                         <input type="text" id="task2" placeholder="Введите расшифрованное слово">
                         <button onclick="checkTask2()">Проверить</button>
                     </div>
                     <div class="game-result" id="result2"></div>
+                </div>
+
+                <div class="task">
+                    <p><strong>Задание 3 (со звездочкой ⭐):</strong> Расшифруйте слово "ЬЪРТЪМОЦА". Подсказка: это математический термин.</p>
+                    <div class="game-input">
+                        <input type="text" id="task3" placeholder="Введите расшифрованное слово">
+                        <button onclick="checkTask3()">Проверить</button>
+                    </div>
+                    <div class="game-result" id="result3"></div>
                 </div>
             </div>
         </section>
@@ -589,13 +598,25 @@
             const correct = "КОРЕНЬ";
             const resultDiv = document.getElementById('result2');
             if (answer === correct) {
-                resultDiv.innerHTML = 'Отлично! "ХСПЪТГ" → "КОРЕНЬ"';
+                resultDiv.innerHTML = 'Отлично! "ФРОЪСГ" → "КОРЕНЬ"';
                 resultDiv.className = 'game-result success';
             } else {
-                resultDiv.innerHTML = 'Неправильно. Подсказка: Х→К, С→О, П→Р, Ъ→Е, Т→Н, Г→Ь → "КОРЕНЬ"';
+                resultDiv.innerHTML = 'Неправильно. Подсказка: Ф→К, Р→О, П→Р,..';
                 resultDiv.className = 'game-result error';
             }
         }
+        function checkTask3() {
+    const answer = document.getElementById('task3').value.toUpperCase();
+    const correct = "ГЕОМЕТРИЯ";
+    const resultDiv = document.getElementById('result3');
+    if (answer === correct) {
+        resultDiv.innerHTML = 'Поздравляю! "ЬЪРТЪМОЦА" → "ГЕОМЕТРИЯ"';
+        resultDiv.className = 'game-result success';
+    } else {
+        resultDiv.innerHTML = 'Попробуйте еще раз. Это математический термин из 9 букв!';
+        resultDiv.className = 'game-result error';
+    }
+}
 
         document.addEventListener('DOMContentLoaded', () => {
             currentDecryptedWord = atbashTransform(currentEncryptedWord);
