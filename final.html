@@ -134,26 +134,30 @@
         
         .code-input {
             display: flex;
-            gap: 15px;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
+            gap: 15px;
             margin: 20px 0;
         }
         
         .code-input input {
-            width: 200px;
+            width: 250px;
             text-align: center;
             font-size: 1.3rem;
             letter-spacing: 5px;
         }
         
+        .code-input button {
+            width: auto;
+            min-width: 200px;
+        }
+        
         @media (max-width: 768px) {
-            .code-input {
-                flex-direction: column;
+            .code-input input {
+                width: 100%;
             }
             
-            .code-input input {
+            .code-input button {
                 width: 100%;
             }
         }
